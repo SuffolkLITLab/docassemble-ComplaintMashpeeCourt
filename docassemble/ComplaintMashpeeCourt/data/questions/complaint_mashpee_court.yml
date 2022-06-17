@@ -1,0 +1,296 @@
+---
+include:
+  - docassemble.AssemblyLine:al_package.yml
+  - docassemble.ALAnyState:any_state.yml
+---
+metadata:
+  title: |
+    Complaint  mashpee wampanoag tribal court
+  short title: |
+    Complaint  mashpee wampanoag tribal court
+  authors:
+    - Ivette A Cuenod
+---
+mandatory: True
+comment: |
+  Global interview metadata
+variable name: interview_metadata["complaint_mashpee_court"]
+data:
+  al_weaver_version: "1.6.3"
+  generated on: "2022-06-17"
+  title: >-
+    Complaint  mashpee wampanoag tribal court
+  short title: >-
+    Complaint  mashpee wampanoag tribal court
+  description: |-
+    Complaint  mashpee wampanoag tribal court
+  original_form: >-
+    
+  allowed courts: 
+    - "Mashpee Wampanoag Tribal Court"
+  categories: []
+  typical role: "plaintiff"
+---
+code: |
+  interview_metadata['main_interview_key'] =  'complaint_mashpee_court'
+---
+code: |
+  # This controls the default country and list of states in address field questions
+  AL_DEFAULT_COUNTRY = "US"
+---
+code: |
+  # This controls the default state in address field questions
+  AL_DEFAULT_STATE = "MA"
+---
+code: |
+  github_repo_name =  'docassemble-ComplaintMashpeeCourt'
+---
+code: |
+  interview_short_title = "File a Complaint  at Mashpee Wampanoag Tribal Court"
+---
+code: |
+  al_form_type = 'starts_case'
+---
+objects:
+  - users: ALPeopleList.using(there_are_any=True)
+---
+sections:
+  - review_complaint_mashpee_court: Review your answers
+---
+#################### Interview order #####################
+comment: |
+  Controls order and branching logic for questions specific to this form
+id: interview_order_complaint_mashpee_court
+code: |
+  # Set the allowed courts for this interview
+  allowed_courts = interview_metadata["complaint_mashpee_court"]["allowed courts"]
+  nav.set_section('review_complaint_mashpee_court')
+  user_role = 'plaintiff'
+  Instructions_to_file_a_complaint_in_Mashpee_Wampanoag_Tribal_Court
+  users1_name
+  defendants1_name
+  set_progress(25)
+  summary_of_case
+  users1_signature
+  docket_number
+  set_progress(50)
+  signature_date
+  interview_order_complaint_mashpee_court = True
+---
+###################### Main order ######################
+comment: |
+  This block includes the logic for standalone interviews.
+  Delete mandatory: True to include in another interview
+mandatory: True
+code: |
+  al_intro_screen
+  complaint_mashpee_court_intro
+  interview_order_complaint_mashpee_court
+  signature_date
+  # Save anonymized interview statistics (customize the saved data below)
+  store_variables_snapshot(data={'zip': users[0].address.zip})
+  complaint_mashpee_court_preview_question
+  basic_questions_signature_flow
+  complaint_mashpee_court_download
+---
+comment: |
+  This question is used to introduce your interview. Please customize
+id: Complaint_mashpee_wampanoag_tribal_court
+continue button field: complaint_mashpee_court_intro
+question: |
+  Complaint  mashpee wampanoag tribal court
+subquestion: |
+  1. Plaintiff: Insert your name and Tribal ID#
+  2. Defendant: Name of person or tribal department the complaint is about.
+  3 Complaint: Describe the nature of your complaint and who and what caused it. Be as specific as possible regarding what happened.
+  	a. Basis of tribal jurisdiction mention or attach the constitution or ordinance you 	are referring to. 
+  	b. If you know any tribal law that was violates as part of your statement, state 		what it is. If not leave it blank. 
+  	c. The tribal clerk cannot help you with this section as it would be constituting as 	legal advise. The tribal clerk can only assist with procedural questions.
+  	d. Please explain the relief you are seeking. If you are suing the Tribe, be aware 	that the tribe has sovereign immunity.
+  4. You must swear that everything you have stated in the complaint is true. You can be charged with perjury if you intentionally state in the complaint anything that is not true. include your name and signature with date, address and phone number.
+  5. Once a complaint form is filled out properly, a $40.00 court filling fee is required to be filed with the complaint.
+  6. Once you have filed the complint and paid the Filing Fee with the Court, the Court Clerk will issue you a summons and Affidavit Services. 
+  7. You must serve the Complaint to the Defendant with a Summons and a copy of the Complaint. Once you have served the Defendant by mail or hand deliver, an Affidavit of Service (a complaint's proof of delivery) needs to be bought to the Court Clerk.
+---
+id: Instructions to file a complaint in Mashpee Wampanoag Tribal Court
+question: |
+  Instructions to file a complaint in Mashpee Wampanoag Tribal Court
+subquestion: |
+  1. Plaintiff: Insert your name and Tribal ID#
+  2. Defendant: Name of person or tribal department the complaint is about.
+  3 Complaint: Describe the nature of your complaint and who and what caused it. Be as specific as possible regarding what happened.
+  	a. Basis of tribal jurisdiction mention or attach the 
+          constitution or ordinance you are referring to. 
+  	b. If you know any tribal law that was violates as 
+         part of your statement, state what it is. If not leave it 
+         blank. 
+  	c. The tribal clerk cannot help you with this section as it would be constituting as 	legal advise. The tribal clerk can only assist with procedural questions.
+  	d. Please explain the relief you are seeking. If you 
+         are suing the Tribe, be aware that the tribe has 
+        sovereign immunity.
+  4. You must swear that everything you have stated in the complaint is true. You can be charged with perjury if you intentionally state in the complaint anything that is not true. include your name and signature with date, address and phone number.
+  5. Once a complaint form is filled out properly, a $40.00 court filling fee is required to be filed with the complaint.
+  6. Once you have filed the complint and paid the Filing Fee with the Court, the Court Clerk will issue you a summons and Affidavit Services. 
+  7. You must serve the Complaint to the Defendant with a Summons and a copy of the Complaint. Once you have served the Defendant by mail or hand deliver, an Affidavit of Service (a complaint's proof of delivery) needs to be bought to the Court Clerk
+continue button field: Instructions_to_file_a_complaint_in_Mashpee_Wampanoag_Tribal_Court
+---
+id: Plaintiff information
+question: |
+  Plaintiff information
+subquestion: |
+  Please include your full name and Tribal ID # if applicable.
+fields:
+  - "Users name": users1_name
+  - "Users1 address block": users1_address_block
+  - "Phone number": users1_phone_number
+    datatype: number
+---
+id: Defendants information
+question: |
+  Defendants information
+subquestion: |
+  Please provide full name of the Defendant - person or Department who the complaint is against.
+fields:
+  - "Defendants name": defendants1_name
+  - "Is the action against the Mashpee Wampanoag?": is_against_mashpee
+    datatype: yesnoradio
+  - "Trial court department": trial_court_department
+---
+id: Summary of Case
+question: |
+  Summary of Case
+subquestion: |
+  Please provide a detailed description about the case; the laws that you considered were violated and the case jurisdiction if you know it. Also please state what is the relief you are seeking
+fields:
+  - "Summary of case": summary_of_case
+  - "Law violation": law_violation
+  - "Case jurisdiction": case_jurisdiction
+  - "Relief description": relief_description
+---
+id: Signature
+question: |
+  Signature
+fields:
+  - "Signature": users1_signature
+---
+code: |
+  # This is a placeholder for the addresses that will be searched
+  # for matching address to court. Edit if court venue is based on 
+  # a different address than the user's
+  addresses_to_search = [user.address for user in users]
+---
+id: preview complaint_mashpee_court
+question: |
+  Preview your form before you sign it
+subquestion: |
+  Here is a preview of the form you will sign on the next page.   
+  
+  ${ al_court_bundle.as_pdf(key='preview') }
+
+  Click the image to open it in a new tab. Click the "Edit answers" button
+  to edit your answers.
+
+  ${ action_button_html(url_action('review_complaint_mashpee_court'), label='Edit answers', color='info') }
+  
+  Remember to come back to this window to continue and sign your form.
+continue button field: complaint_mashpee_court_preview_question    
+---
+code: |
+  signature_fields = []
+---
+id: complaint mashpee court review screen
+event: review_complaint_mashpee_court
+question: |
+  Review your answers
+review:
+  - Edit: defendants1_name
+    button: |
+      **Defendants name**:
+      ${ defendants1_name }
+  - Edit: users1_name
+    button: |
+      **Users name**:
+      ${ users1_name }
+  - Edit: is_against_mashpee
+    button: |
+      **Is the action against the Mashpee Wampanoag?**:
+      ${ is_against_mashpee }
+  - Edit: summary_of_case
+    button: |
+      **Summary of case**:
+      ${ summary_of_case }
+  - Edit: law_violation
+    button: |
+      **Law violation**:
+      ${ law_violation }
+  - Edit: case_jurisdiction
+    button: |
+      **Case jurisdiction**:
+      ${ case_jurisdiction }
+  - Edit: relief_description
+    button: |
+      **Relief description**:
+      ${ relief_description }
+  - Edit: users1_address_block
+    button: |
+      **Users1 address block**:
+      ${ users1_address_block }
+  - Edit: trial_court_department
+    button: |
+      **Trial court department**:
+      ${ trial_court_department }
+  - Edit: users1_signature
+    button: |
+      **Signature**:
+      ${ users1_signature }
+  - Edit: users1_phone_number
+    button: |
+      **Phone number**:
+      ${ users1_phone_number }
+  - Edit: docket_number
+    button: |
+      **docket_number**:
+      ${ docket_number }
+  - Edit: signature_date
+    button: |
+      **signature_date**:
+      ${ signature_date }
+---
+id: download complaint_mashpee_court
+event: complaint_mashpee_court_download
+question: |
+  All done
+subquestion: |
+  Thank you ${users}. Your form is ready to download and deliver.
+  
+  View, download and send your form below. Click the "Edit answers" button to fix any mistakes.
+
+  ${ action_button_html(url_action('review_complaint_mashpee_court'), label='Edit answers', color='info') }
+  
+  
+  ${ al_user_bundle.download_list_html() }
+  
+
+  ${ al_user_bundle.send_button_html(show_editable_checkbox=True) }
+
+progress: 100
+---
+objects:
+  - complaint_mashpee_court_post_interview_instructions: ALDocument.using(title="Instructions", filename="complaint_mashpee_court_next_steps.docx", enabled=True, has_addendum=False, default_overflow_message=AL_DEFAULT_OVERFLOW_MESSAGE)
+  - complaint_mashpee_court_attachment: ALDocument.using(title="Complaint  mashpee wampanoag tribal court", filename="complaint_mashpee_court.docx", enabled=True, has_addendum=False, default_overflow_message=AL_DEFAULT_OVERFLOW_MESSAGE)
+---
+objects:
+  - al_user_bundle: ALDocumentBundle.using(elements=[complaint_mashpee_court_post_interview_instructions,complaint_mashpee_court_attachment], filename="complaint_mashpee_court.docx_package.pdf", title="All forms to download for your records", enabled=True)
+  - al_court_bundle: ALDocumentBundle.using(elements=[complaint_mashpee_court_attachment], filename="complaint_mashpee_court.docx_package.pdf", title="All forms to download for your records", enabled=True)
+---
+attachments:
+  - name: complaint mashpee court post interview instructions
+    filename: Post-interview-instructions     
+    variable name: complaint_mashpee_court_post_interview_instructions[i]        
+    skip undefined: True
+    docx template file: complaint_mashpee_court_next_steps.docx
+  - name: complaint mashpee court attachment
+    filename: complaint_mashpee_court.docx     
+    variable name: complaint_mashpee_court_attachment[i]        
+    skip undefined: True
+    docx template file: complaint_mashpee_court.docx
