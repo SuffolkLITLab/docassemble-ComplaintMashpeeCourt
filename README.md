@@ -1,6 +1,6 @@
 # docassemble.ComplaintMashpeeCourt
 
-Complaint  mashpee wampanoag tribal court
+Complaint Mashpee Wampanoag Tribal Court
 
 ## Author
 
