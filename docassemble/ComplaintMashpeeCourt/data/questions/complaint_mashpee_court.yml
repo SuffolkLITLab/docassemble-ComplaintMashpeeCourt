@@ -74,6 +74,8 @@ code: |
   set_parts(subtitle=str(users))
   users[0].phone_number
   set_progress(40)
+  is_against_mashpee
+  mashpee_department
   defendants.gather()
   does_confirm_understanding
   signature_date
@@ -145,6 +147,23 @@ fields:
   - "Law violation": law_violation
   - "Relief description": relief_description
 ---
+id: Against Mashpee
+question: |
+  Is the action against the Mashpee Wampanoag?
+fields:
+  - "This action is against Mashpee Wampanoag": is_against_mashpee 
+    datatype: yesnoradio
+---
+id: Mashpee Wampanoag Department or Departments
+question: |
+  Which department or departments of Mashpee Wampanoag is your case against?
+fields:
+  - no label: mashpee_department
+    datatype: checkboxes
+    choices:
+      - Department 1: department 1
+      - Department 2: department 2
+---
 id: Confirmation of Understanding
 question: |
   Confirm you understand
@@ -156,7 +175,7 @@ fields:
     none of the above: False    
     minlength: 1
     choices:
-      - I understand: True
+      - I understand: Yes
     validation messages:
       minlength: |
         You cannot continue unless you swear and agree understanding.
