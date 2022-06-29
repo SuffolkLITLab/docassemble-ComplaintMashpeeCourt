@@ -53,7 +53,7 @@ setup(name='docassemble.ComplaintMashpeeCourt',
       url='https://courtformsonline.org',
       packages=find_packages(),
       namespace_packages=['docassemble'],
-      install_requires=['docassemble.AssemblyLine>=2.11.3'],
+      install_requires=['docassemble.AssemblyLine>=2.13.0'],
       zip_safe=False,
       package_data=find_package_data(where='docassemble/ComplaintMashpeeCourt/', package='docassemble.ComplaintMashpeeCourt'),
      )

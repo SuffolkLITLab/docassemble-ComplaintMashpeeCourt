@@ -75,6 +75,7 @@ code: |
   users[0].phone_number
   set_progress(40)
   defendants.gather()
+  does_confirm_understanding
   signature_date
   interview_order_complaint_mashpee_court = True
 ---
@@ -143,6 +144,22 @@ fields:
   - "Case jurisdiction": case_jurisdiction
   - "Law violation": law_violation
   - "Relief description": relief_description
+---
+id: Confirmation of Understanding
+question: |
+  Confirm you understand
+subquestion: |
+  I swear or affirm by signing below that I have read this complaint and that to the best of my knowledge, the facts stated are true and correct. I Understand that it is my responsibility to provide a copy of this Complaint to each and every Defendant. I must provide proof to the Tribal Court that this complaint has been served before the action can proceed
+fields:
+  - To continue, you must confirm you understand: does_confirm_understanding
+    datatype: checkboxes
+    none of the above: False    
+    minlength: 1
+    choices:
+      - I understand: True
+    validation messages:
+      minlength: |
+        You cannot continue unless you swear and agree understanding.
 ---
 code: |
   # This is a placeholder for the addresses that will be searched
@@ -227,7 +244,7 @@ columns:
   - Signature: |
       row_item.signature if defined("row_item.signature") else ""
   - Address: |
-      row_item.address.block() if defined("row_item.address.address") else ""
+      row_item.address.address() if defined("row_item.address.address") else ""
   - Name: |
       row_item.name.full() if defined("row_item.name.first") else ""
   - Phone number: |
@@ -279,7 +296,7 @@ progress: 100
 ---
 objects:
   - complaint_mashpee_court_post_interview_instructions: ALDocument.using(title="Instructions", filename="complaint_mashpee_court_next_steps.docx", enabled=True, has_addendum=False, default_overflow_message=AL_DEFAULT_OVERFLOW_MESSAGE)
-  - complaint_mashpee_court_attachment: ALDocument.using(title="Complaint Mashpee Wampanoag Tribal Court", filename="complaint_mashpee_court.docx", enabled=True, has_addendum=False, default_overflow_message=AL_DEFAULT_OVERFLOW_MESSAGE)
+  - complaint_mashpee_court_attachment: ALDocument.using(title="Complaint Mashpee Wampanoag Tribal Court", filename="Complaint_-_Mashpee_Wampanoag_Tribal_Court.docx", enabled=True, has_addendum=False, default_overflow_message=AL_DEFAULT_OVERFLOW_MESSAGE)
 ---
 objects:
   - al_user_bundle: ALDocumentBundle.using(elements=[complaint_mashpee_court_post_interview_instructions,complaint_mashpee_court_attachment], filename="complaint_mashpee_court.docx_package.pdf", title="All forms to download for your records", enabled=True)
@@ -295,4 +312,4 @@ attachments:
     filename: complaint_mashpee_court.docx     
     variable name: complaint_mashpee_court_attachment[i]        
     skip undefined: True
-    docx template file: complaint_mashpee_court.docx
+    docx template file: Complaint_-_Mashpee_Wampanoag_Tribal_Court.docx
