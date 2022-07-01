@@ -74,8 +74,10 @@ code: |
   set_parts(subtitle=str(users))
   users[0].phone_number
   set_progress(40)
-  is_against_mashpee
-  mashpee_department
+  if is_against_mashpee: 
+    mashpee_department
+  else: 
+    defendants.there_are_any = True
   defendants.gather()
   does_confirm_understanding
   signature_date
