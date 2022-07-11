@@ -164,8 +164,28 @@ fields:
   - no label: mashpee_department
     datatype: checkboxes
     choices:
-      - Department 1: department 1
-      - Department 2: department 2
+      - 477 Employment and Training Program: 477 Employment and Training Program
+      - Child & Family Services (CFS): Child & Family Services (CFS)
+      - Education Department: Education Department
+      - Emergency Management Department: Emergency Management Department
+      - Enrollment Department: Enrollment Department
+      - Facilities Department: Facilities Department
+      - Finance Department: Finance Department
+      - First Light Shellfish Farm: First Light Shellfish Farm
+      - Food Pantry: Food Pantry
+      - Health and Human Services: Health and Human Services
+      - Historic Preservation & NAGPRA: Historic Preservation & NAGPRA
+      - Homeland Security (Police and Security): Homeland Security (Police and Security)
+      - Housing Department: Housing Department
+      - Human Resources Department: Human Resources Department
+      - Indian Health Services (IHS): Indian Health Services (IHS)
+      - Language Department: Language Department
+      - Mashpee Wampanoag Museum: Mashpee Wampanoag Museum
+      - Natural Resources Department: Natural Resources Department
+      - Nutritional Services: Nutritional Services
+      - Public Works Department: Public Works Department
+      - MWT TERO: MWT TERO
+      - Tribal Administrator: Tribal Administrator
 ---
 id: Confirmation of Understanding
 question: |
