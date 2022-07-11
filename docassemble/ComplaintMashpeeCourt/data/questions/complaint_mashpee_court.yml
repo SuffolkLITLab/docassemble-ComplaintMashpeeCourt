@@ -65,7 +65,6 @@ code: |
   allowed_courts = interview_metadata["complaint_mashpee_court"]["allowed courts"]
   nav.set_section('review_complaint_mashpee_court')
   user_role = 'plaintiff'
-  Instructions_for_filling_out_a_Complaint_in_Mashpee_Wampanoag_Tribal_Court
   summary_of_case
   docket_number
   set_progress(20)
@@ -80,7 +79,8 @@ code: |
     defendants.there_are_any = True
   defendants.gather()
   does_confirm_understanding
-  signature_date
+  #signature_date
+  #basic_questions_signature_flow
   interview_order_complaint_mashpee_court = True
 ---
 ###################### Main order ######################
@@ -121,22 +121,23 @@ subquestion: |
   6. Once you have filed the complint and paid the Filing Fee with the Court, the Court Clerk will issue you a summons and Affidavit Services. 
   7. You must serve the Complaint to the Defendant with a Summons and a copy of the Complaint. Once you have served the Defendant by mail or hand deliver, an Affidavit of Service (a complaint's proof of delivery) needs to be bought to the Court Clerk
 ---
-id: Instructions for filling out a Complaint in Mashpee Wampanoag Tribal Court
-question: |
-  Instructions for filling out a Complaint in Mashpee Wampanoag Tribal Court:
-subquestion: |
-  1. Plaintiff: Insert your name and Tribal ID#
-  2. Defendant: Name of person or tribal department the complaint is about.
-  3 Complaint: Describe the nature of your complaint and who and what caused it. Be as specific as possible regarding what happened.
-  	a. Basis of tribal jurisdiction mention or attach the constitution or ordinance you 	are referring to. 
-  	b. If you know any tribal law that was violates as part of your statement, state 		what it is. If not leave it blank. 
-  	c. The tribal clerk cannot help you with this section as it would be constituting as 	legal advise. The tribal clerk can only assist with procedural questions.
-  	d. Please explain the relief you are seeking. If you are suing the Tribe, be aware 	that the tribe has sovereign immunity.
-  4. You must swear that everything you have stated in the complaint is true. You can be charged with perjury if you intentionally state in the complaint anything that is not true. include your name and signature with date, address and phone number.
-  5. Once a complaint form is filled out properly, a $40.00 court filling fee is required to be filed with the complaint.
-  6. Once you have filed the complint and paid the Filing Fee with the Court, the Court Clerk will issue you a summons and Affidavit Services. 
-  7. You must serve the Complaint to the Defendant with a Summons and a copy of the Complaint. Once you have served the Defendant by mail or hand deliver, an Affidavit of Service (a complaint's proof of delivery) needs to be bought to the Court Clerk
-continue button field: Instructions_for_filling_out_a_Complaint_in_Mashpee_Wampanoag_Tribal_Court
+comment: |
+  id: Instructions for filling out a Complaint in Mashpee Wampanoag Tribal Court
+  question: |
+    Instructions for filling out a Complaint in Mashpee Wampanoag Tribal Court:
+  subquestion: |
+    1. Plaintiff: Insert your name and Tribal ID#
+    2. Defendant: Name of person or tribal department the complaint is about.
+    3 Complaint: Describe the nature of your complaint and who and what caused it. Be as specific as possible regarding what happened.
+      a. Basis of tribal jurisdiction mention or attach the constitution or ordinance you 	are referring to. 
+      b. If you know any tribal law that was violates as part of your statement, state 		what it is. If not leave it blank. 
+      c. The tribal clerk cannot help you with this section as it would be constituting as 	legal advise. The tribal clerk can only assist with procedural questions.
+      d. Please explain the relief you are seeking. If you are suing the Tribe, be aware 	that the tribe has sovereign immunity.
+    4. You must swear that everything you have stated in the complaint is true. You can be charged with perjury if you intentionally state in the complaint anything that is not true. include your name and signature with date, address and phone number.
+    5. Once a complaint form is filled out properly, a $40.00 court filling fee is required to be filed with the complaint.
+    6. Once you have filed the complint and paid the Filing Fee with the Court, the Court Clerk will issue you a summons and Affidavit Services. 
+    7. You must serve the Complaint to the Defendant with a Summons and a copy of the Complaint. Once you have served the Defendant by mail or hand deliver, an Affidavit of Service (a complaint's proof of delivery) needs to be bought to the Court Clerk
+  continue button field: Instructions_for_filling_out_a_Complaint_in_Mashpee_Wampanoag_Tribal_Court
 ---
 id: Case Description
 question: |
