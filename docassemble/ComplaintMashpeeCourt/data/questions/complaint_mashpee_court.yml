@@ -146,9 +146,17 @@ subquestion: |
   Please be as specific as possible
 fields:
   - "Case description": summary_of_case
+  - note: |
+      Describe the nature of your complaint and who or what caused it. Make sure you are as specific as specific as possible.
   - "Case jurisdiction": case_jurisdiction
+  - note: |
+      (Ex: Constitution, ordinance, etc)
   - "Law violation": law_violation
+  - note: |
+      If you know any tribal law that was violated in your prior statement please state it in here. If not please write N/A
   - "Relief description": relief_description
+  - note: |
+      Every final judgement must grant a remedy or relief to the successful party, even if the specific remedy is not not demanded in the pleadings in the court
 ---
 id: Against Mashpee
 question: |
@@ -156,6 +164,8 @@ question: |
 fields:
   - "This action is against Mashpee Wampanoag": is_against_mashpee 
     datatype: yesnoradio
+  - note: |
+      (i.e Election Committee, Enrollment Committee, Housing Department, etc)
 ---
 id: Mashpee Wampanoag Department or Departments
 question: |
@@ -193,7 +203,7 @@ question: |
 subquestion: |
   I swear or affirm by signing below that I have read this complaint and that to the best of my knowledge, the facts stated are true and correct. I Understand that it is my responsibility to provide a copy of this Complaint to each and every Defendant. I must provide proof to the Tribal Court that this complaint has been served before the action can proceed
 fields:
-  - To continue, you must confirm you understand: does_confirm_understanding
+  - To continue, you must confirm you understand the swear clause: does_confirm_understanding
     datatype: checkboxes
     none of the above: False    
     minlength: 1
