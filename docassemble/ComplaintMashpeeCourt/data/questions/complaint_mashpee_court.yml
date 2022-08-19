@@ -66,6 +66,9 @@ code: |
   nav.set_section('review_complaint_mashpee_court')
   user_role = 'plaintiff'
   summary_of_case
+  case_jurisdiction
+  law_violation
+  relief_description
   docket_number
   set_progress(20)
   users[0].address.address
@@ -75,6 +78,7 @@ code: |
   set_progress(40)
   if is_against_mashpee: 
     mashpee_department
+    defendants.there_are_any = False
   else: 
     defendants.there_are_any = True
   defendants.gather()
@@ -109,63 +113,73 @@ question: |
 subquestion: |
   Instructions for filling out a Complaint  at Mashpee Wampanoag Tribal Court:
   
-  1. Plaintiff: Insert your name and Tribal ID#
-  2. Defendant: Name of person or tribal department the complaint is about.
-  3 Complaint: Describe the nature of your complaint and who and what caused it. Be as specific as possible regarding what happened.
+  Please answer the questions as specific as possible, to complete the form you will need to have in hand the following information: 
+  
+  1. Plaintiff: The Plaintiff is the person making the complaint. You will need your name and Tribal ID# -if applicable; your address; and phone number.
+  
+  2. Defendant: The Defendant is the person or tribal department the complaint is about. You will need to know the name of the person or the specific department in the tribe. 
+  
+  3. Complaint: Describe problem or complaint and who and what caused it. Dates and names are encouraged. 
+  
   	a. Basis of tribal jurisdiction mention or attach the constitution or ordinance you 	are referring to. 
-  	b. If you know any tribal law that was violates as part of your statement, state which it is. If not leave it blank. 
-  	c. The tribal clerk cannot help you with this section as it would be constituting as 	legal advise. The tribal clerk can only assist with procedural questions.
-  	d. Please explain the relief you are seeking. If you are suing the Tribe, be aware that the tribe has sovereign immunity.
-  4. You must swear that everything you have stated in the complaint is true. You can be charged with perjury if you intentionally state in the complaint anything that is not true. include your name and signature with date, address and phone number.
-  5. Once a complaint form is filled out properly, a $40.00 court filling fee is required to be filed with the complaint.
-  6. Once you have filed the complint and paid the Filing Fee with the Court, the Court Clerk will issue you a summons and Affidavit Services. 
-  7. You must serve the Complaint to the Defendant with a Summons and a copy of the Complaint. Once you have served the Defendant by mail or hand deliver, an Affidavit of Service (a complaint's proof of delivery) needs to be bought to the Court Clerk
----
-comment: |
-  id: Instructions for filling out a Complaint in Mashpee Wampanoag Tribal Court
-  question: |
-    Instructions for filling out a Complaint in Mashpee Wampanoag Tribal Court:
-  subquestion: |
-    1. Plaintiff: Insert your name and Tribal ID#
-    2. Defendant: Name of person or tribal department the complaint is about.
-    3 Complaint: Describe the nature of your complaint and who and what caused it. Be as specific as possible regarding what happened.
-      a. Basis of tribal jurisdiction mention or attach the constitution or ordinance you 	are referring to. 
-      b. If you know any tribal law that was violates as part of your statement, state 		what it is. If not leave it blank. 
-      c. The tribal clerk cannot help you with this section as it would be constituting as 	legal advise. The tribal clerk can only assist with procedural questions.
-      d. Please explain the relief you are seeking. If you are suing the Tribe, be aware 	that the tribe has sovereign immunity.
-    4. You must swear that everything you have stated in the complaint is true. You can be charged with perjury if you intentionally state in the complaint anything that is not true. include your name and signature with date, address and phone number.
-    5. Once a complaint form is filled out properly, a $40.00 court filling fee is required to be filed with the complaint.
-    6. Once you have filed the complint and paid the Filing Fee with the Court, the Court Clerk will issue you a summons and Affidavit Services. 
-    7. You must serve the Complaint to the Defendant with a Summons and a copy of the Complaint. Once you have served the Defendant by mail or hand deliver, an Affidavit of Service (a complaint's proof of delivery) needs to be bought to the Court Clerk
-  continue button field: Instructions_for_filling_out_a_Complaint_in_Mashpee_Wampanoag_Tribal_Court
+  	
+    b. If you know any tribal law that was violates as part of your statement, state which it is. If not leave it blank. 
+  	
+    c. The tribal clerk cannot help you with this section as it would be constituting as 	legal advise. The tribal clerk can only assist with procedural questions.
+  	
+    d. Please explain the relief you are seeking. If you are suing the Tribe, be aware that the tribe has sovereign immunity.
+  
+  4. Please read carefully the Instructions page attach at the end of this interview to know what the next steps will be.  
+  
+  5. If you have any questions about the procedure of the filling and filing the Complaint, please contact the Tribal Clerk.
+ #continue button field: Instructions_for_filling_out_a_Complaint_in_Mashpee_Wampanoag_Tribal_Court
 ---
 id: Case Description
 question: |
   Case Description
 subquestion: |
-  Please be as specific as possible
+       Describe problem or complaint and who and what caused it. Include all dates and names you consider necessary.
 fields:
   - "Case description": summary_of_case
-  - note: |
-      Describe the nature of your complaint and who or what caused it. Make sure you are as specific as specific as possible.
+    input type: area
+---
+id: Case Description
+question: |
+    Case Jurisdiction
+subquestion: |
+ (Ex: Constitution, ordinance, etc)
+fields:
   - "Case jurisdiction": case_jurisdiction
-  - note: |
-      (Ex: Constitution, ordinance, etc)
+    input type: area
+---
+id: Case Description
+question: |
+    Case Violation
+subquestion: |
+       If you know any tribal law that was violated in your prior statement please state it in here. If not please write N/A
+fields:
   - "Law violation": law_violation
-  - note: |
-      If you know any tribal law that was violated in your prior statement please state it in here. If not please write N/A
+    input type: area
+---
+id: Case Description
+question: |
+    Relief or remedy desired
+subquestion: |
+  Every final judgement must grant a remedy or relief to the successful party, even if the specific remedy is not demanded in the pleadings in the court
+fields:  
   - "Relief description": relief_description
-  - note: |
-      Every final judgement must grant a remedy or relief to the successful party, even if the specific remedy is not not demanded in the pleadings in the court
+    input type: area
 ---
 id: Against Mashpee
 question: |
-  Is the action against the Mashpee Wampanoag?
+  Is the action against the Mashpee Wampanoag Tribe?
+subquestion: |
+  If your complaint is against a Depeartment or Institution of the Mashpee Tribe, select YES.  
 fields:
-  - "This action is against Mashpee Wampanoag": is_against_mashpee 
+  - "This action is against Mashpee Wampanoag Tribe": is_against_mashpee 
     datatype: yesnoradio
   - note: |
-      (i.e Election Committee, Enrollment Committee, Housing Department, etc)
+      (The Mashpee Wampanoag Departments are: 477 Employment and Training Program, Child & Family Services (CFS), Education Department, Emergency Management Department, Enrollment Department, Facilities Department, Finance Department, First Light Shellfish Farm, Food Pantry, Health and Human Services, Historic Preservation & NAGPRA, Homeland Security (Police and Security), Housing Department, Human Resources Department, Indian Health Services (IHS), Language Department, Mashpee Wampanoag Museum, Natural Resources Department, Nutritional Services, Public Works Department, MWT TERO, Tribal Administrator)
 ---
 id: Mashpee Wampanoag Department or Departments
 question: |
