@@ -104,6 +104,14 @@ code: |
   users[0].signature
   complaint_mashpee_court_download
 ---
+terms:
+  jurisdiction: |
+    in law, the authority of a court to hear and determine cases. This authority     is     constitutionally based..
+  Complaint: |
+    legal complaint, or civil complaint, is the first document filed in a case. The         purpose of a legal complaint is to lay out all of the facts and reasons why the         plaintiff decided to bring the suit, along with the case law that supports his         decision to bring the suit.
+  sovereign immunity: |
+    the legal doctrine holding that the government cannot be sued without its consent  
+---
 comment: |
   This question is used to introduce your interview. Please customize
 id: Complaint_Mashpee_Wampanoag_Tribal_Court
@@ -111,7 +119,7 @@ continue button field: complaint_mashpee_court_intro
 question: |
   Complaint Mashpee Wampanoag Tribal Court
 subquestion: |
-  Instructions for filling out a Complaint  at Mashpee Wampanoag Tribal Court:
+  Instructions for filling out a {Complaint}  at Mashpee Wampanoag Tribal Court:
   
   Please answer the questions as specific as possible, to complete the form you will need to have in hand the following information: 
   
@@ -121,13 +129,13 @@ subquestion: |
   
   3. Complaint: Describe problem or complaint and who and what caused it. Dates and names are encouraged. 
   
-  	a. Basis of tribal jurisdiction mention or attach the constitution or ordinance you are referring to. 
+  	a. Basis of tribal {jurisdiction} mention or attach the constitution or ordinance you are referring to. 
   	
     b. If you know any tribal law that was violates as part of your statement, state which it is. If not leave it blank. 
   	
     c. The tribal clerk cannot help you with this section as it would be constituting as 	legal advise. The tribal clerk can only assist with procedural questions.
   	
-    d. Please explain the relief you are seeking. If you are suing the Tribe, be aware that the tribe has sovereign immunity.
+    d. Please explain the relief you are seeking. If you are suing the Tribe, be aware that the tribe has {sovereign immunity}.
   
   4. Please read carefully the Instructions page attach at the end of this interview to know what the next steps will be.  
   
