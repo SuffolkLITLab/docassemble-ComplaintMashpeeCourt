@@ -104,6 +104,13 @@ code: |
   users[0].signature
   complaint_mashpee_court_download
 ---
+code: |
+  contact = "contact"
+script: | 
+  <script>
+    $("#contact).attr(https://mashpeewampanoagtribe-nsn.gov/about-the-court))
+   </script>
+---
 comment: |
   This question is used to introduce your interview. Please customize
 id: Complaint_Mashpee_Wampanoag_Tribal_Court
@@ -131,8 +138,9 @@ subquestion: |
   
   4. Please read carefully the Instructions page attach at the end of this interview to know what the next steps will be.  
   
-  5. If you have any questions about the procedure of the filling and filing the Complaint, please contact the Tribal Clerk.
+  5. If you have any questions about the procedure of the filling and filing the Complaint, please <a id="contact"> contact </a> the Tribal Court.
  #continue button field: Instructions_for_filling_out_a_Complaint_in_Mashpee_Wampanoag_Tribal_Court
+  
 ---
 id: Case Description
 question: |
