@@ -65,6 +65,7 @@ code: |
   allowed_courts = interview_metadata["complaint_mashpee_court"]["allowed courts"]
   nav.set_section('review_complaint_mashpee_court')
   user_role = 'plaintiff'
+  enrollment_number
   summary_of_case
   case_jurisdiction
   law_violation
@@ -144,6 +145,16 @@ subquestion: |
   [contact]: ${ url_of('https://mashpeewampanoagtribe-nsn.gov/about-the-court')}
  #continue button field: Instructions_for_filling_out_a_Complaint_in_Mashpee_Wampanoag_Tribal_Court
   
+---
+id: Case Description
+question: |
+    Tribal Enrollement Number?
+subquestion: |
+ If you do not have a Tribal Enrollment number you can go the the Mashpee Website [here.]
+  [here.]: ${ url_of('https://mashpeewampanoagtribe-nsn.gov/enrollment')}
+fields:
+  - "Tribal Enrollment Number": enrollment_number
+    input type: area
 ---
 id: Case Description
 question: |
