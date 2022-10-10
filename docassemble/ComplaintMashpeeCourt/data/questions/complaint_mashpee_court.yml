@@ -65,6 +65,10 @@ code: |
   allowed_courts = interview_metadata["complaint_mashpee_court"]["allowed courts"]
   nav.set_section('review_complaint_mashpee_court')
   user_role = 'plaintiff'
+  users.gather()
+  users[0].address.address
+  set_parts(subtitle=str(users))
+  users[0].phone_number
   enrollment_number
   summary_of_case
   case_jurisdiction
@@ -72,10 +76,7 @@ code: |
   relief_description
   docket_number
   set_progress(20)
-  users[0].address.address
-  users.gather()
-  set_parts(subtitle=str(users))
-  users[0].phone_number
+ 
   set_progress(40)
   if is_against_mashpee: 
     mashpee_department
