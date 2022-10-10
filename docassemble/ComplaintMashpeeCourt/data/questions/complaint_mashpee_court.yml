@@ -190,7 +190,7 @@ id: Case Description
 question: |
     Relief or remedy desired
 subquestion: |
-  Every final judgement must grant a remedy or relief to the successful party, even if the specific remedy is not demanded in the pleadings in the court
+  What relief or remedy are you seeking? (For example, restorative justice or restitution)
 fields:  
   - "Relief description": relief_description
     input type: area
