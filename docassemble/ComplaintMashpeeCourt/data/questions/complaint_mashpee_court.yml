@@ -148,13 +148,15 @@ subquestion: |
 ---
 id: Case Description
 question: |
-    Tribal Enrollement Number?
+    Tribal Enrollment Number?
 subquestion: |
- If you do not have a Tribal Enrollment number you can go the the Mashpee Website [here.]
-  [here.]: ${ url_of('https://mashpeewampanoagtribe-nsn.gov/enrollment')}
+ Are you a member/citizen of the Mashpee Wampanoag Tribe? If yes, please include your enrollment number. 
 fields:
-  - "Tribal Enrollment Number": enrollment_number
+  - "Plaintiff Tribal Enrollment Number": enrollment_number
     input type: area
+  - note: |
+      More information about tribal enrollment number [here.]
+        [here.]: ${ url_of('https://mashpeewampanoagtribe-nsn.gov/enrollment')}
 ---
 id: Case Description
 question: |
