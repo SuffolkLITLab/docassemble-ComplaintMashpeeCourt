@@ -74,7 +74,7 @@ code: |
   
   law_violation
   relief_description
-  docket_number
+  
   set_progress(20)
  
   set_progress(40)
