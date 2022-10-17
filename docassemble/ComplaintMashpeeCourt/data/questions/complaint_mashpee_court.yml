@@ -181,7 +181,7 @@ id: Case Description
 question: |
     Case Violation
 subquestion: |
-       What is the legal basis for your complaint? Identiry the triabal law (either Consituton, Ordinance or Customary Tribal law). If you do not kno, please write N/A.
+       What is the legal basis for your complaint? Identiry the triabal law (either Consituton, Ordinance or Customary Tribal law). If you do not know, please write N/A.
 fields:
   - "Law violation": law_violation
     input type: area
