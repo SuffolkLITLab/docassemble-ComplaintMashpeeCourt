@@ -209,10 +209,8 @@ fields:
 id: Mashpee Wampanoag Department or Departments
 question: |
   Which department or departments of Mashpee Wampanoag is your case against?
-fields:
-  - no label: mashpee_department
-    datatype: combobox
-    choices:
+field: mashpee_department
+combobox: 
       - 477 Employment and Training Program: 477 Employment and Training Program
       - Child & Family Services (CFS): Child & Family Services (CFS)
       - Education Department: Education Department
