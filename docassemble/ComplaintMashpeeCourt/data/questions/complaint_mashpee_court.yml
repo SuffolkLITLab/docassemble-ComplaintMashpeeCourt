@@ -1,6 +1,7 @@
 ---
 include:
   - docassemble.AssemblyLine:al_package.yml
+  - docassemble.ALAffidavitOfIndigency:affidavit_body.yml
 ---
 metadata:
   title: |
@@ -9,6 +10,7 @@ metadata:
     Complaint Mashpee Wampanoag Tribal Court
   authors:
     - Ivette A Cuenod
+    - Christopher Emrich
 ---
 mandatory: True
 comment: |
@@ -123,25 +125,25 @@ question: |
 subquestion: |
   Instructions for filling out a {Complaint}  at Mashpee Wampanoag Tribal Court:
   
-  Please answer the questions as specific as possible, to complete the form you will need to have in hand the following information: 
+  Please answer each question. Be as specific as possible.To complete the form you will need to have in hand the following information: 
   
-  1. Plaintiff: The Plaintiff is the person making the complaint. You will need your name and Tribal ID# -if applicable; your address; and phone number.
+  1. Plaintiff: The Plaintiff is the person making the complaint. You will need your name and Tribal ID number - if applicable, you may also need your address and phone number.
   
   2. Defendant: The Defendant is the person or tribal department the complaint is about. You will need to know the name of the person or the specific department in the tribe. 
   
   3. Complaint: Describe problem or complaint and who and what caused it. Dates and names are encouraged. 
   
-  	a. Basis of tribal {jurisdiction} mention or attach the constitution or ordinance you are referring to. 
+  4. Basis of tribal {jurisdiction} mention or attach the constitution or ordinance you are referring to. 
   	
-    b. If you know any tribal law that was violates as part of your statement, state which it is. If not leave it blank. 
+  5. If you know any tribal law that was violates as part of your statement, state which it is. If not leave it blank. 
   	
-    c. The tribal clerk cannot help you with this section as it would be constituting as 	legal advise. The tribal clerk can only assist with procedural questions.
+  6. The tribal clerk cannot help you with this section as it would be constituting as 	legal advise. The tribal clerk can only assist with procedural questions.
   	
-    d. Please explain the relief you are seeking. If you are suing the Tribe, be aware that the tribe has {sovereign immunity}.
+  7. Explain the relief you are seeking. If you are suing the Tribe, be aware that the tribe has {sovereign immunity}.
   
-  4. Please read carefully the Instructions page attach at the end of this interview to know what the next steps will be.  
+  8. Please read carefully the Instructions page at the end of this form to know what the next steps will be.  
   
-  5. If you have any questions about the procedure of the filling and filing the Complaint, please [contact] the Tribal Court.
+  9. If you have any questions about the procedure of the filling and filing the Complaint, [contact] the Tribal Court.
   
   [contact]: ${ url_of('https://mashpeewampanoagtribe-nsn.gov/about-the-court')}
  #continue button field: Instructions_for_filling_out_a_Complaint_in_Mashpee_Wampanoag_Tribal_Court
@@ -402,3 +404,4 @@ attachments:
     variable name: complaint_mashpee_court_attachment[i]        
     skip undefined: True
     docx template file: Complaint_-_Mashpee_Wampanoag_Tribal_Court.docx
+
