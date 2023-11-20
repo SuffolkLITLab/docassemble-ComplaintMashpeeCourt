@@ -99,7 +99,7 @@ mandatory: True
 code: |
   al_intro_screen
   complaint_mashpee_court_intro
-  interview_order_complaint_mashpee_court
+  Affidavit_of_Indigency_intro
   signature_date
   # Save anonymized interview statistics (customize the saved data below)
   store_variables_snapshot(data={'zip': users[0].address.zip})
@@ -168,7 +168,7 @@ continue button field: complaint_mashpee_court_intro
 question: |
   Complaint Mashpee Wampanoag Tribal Court
 subquestion: |
-  These are the instructions for a plaintiff filling out a {Complaint} at Mashpee Wampanoag Tribal Court. After you click 'Next' the guided interview will begin. 
+  These are the instructions for a plaintiff filling out a {Complaint} at the Mashpee Wampanoag Tribal Court. To complete this form, you MUST be eligible and submit a fee waiver.  
   
   Answer each question as fully as possible. Some questions will ask you to describe certain events. Be as specific as possible. 
   
@@ -232,6 +232,16 @@ subquestion: |
 fields:
   - "Law violation": law_violation
     input type: area
+---
+id: Affidavit_of_Indigency_AND_Request_of_Waiver_of_Fees__Cost
+continue button field: Affidavit_of_Indigency_intro
+question: |
+  Waiver of Court Fees Eligibility Guidelines. 
+subquestion: |
+  Before moving forward, look at the Waiver of Court Fees Eligibility Guidelines linked below. This form is only for people who are eligible for a Fee Waiver. If you make more than the qualifying amount, this form cannot be completed.
+  
+  Please see the [Waiver of Court Fees Eligibility Guidelines].
+  [Waiver of Court Fees Eligibility Guidelines]: ${ url_of('https://static1.squarespace.com/static/59ca33c0f09ca4a9c58455a9/t/5a3c59a28165f53e1ebd7fb1/1513904547125/WAIVER-OF-COURT-FEES.pdf')}
 ---
 id: Case Description
 question: |
