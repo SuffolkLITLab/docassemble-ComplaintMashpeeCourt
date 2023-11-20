@@ -236,6 +236,18 @@ combobox:
       - MWT TERO: MWT TERO
       - Tribal Administrator: Tribal Administrator
 ---
+id: your name
+sets:
+    - users[0].name.first
+    - users[0].name.last
+    - users[0].name.middle
+    - users[0].name.suffix
+question:  |
+  What is the name of the plaintiff? 
+fields:
+  - code: |
+      users[0].name_fields()
+---
 id: Confirmation of Understanding
 question: |
   Confirm you understand
@@ -404,4 +416,5 @@ attachments:
     variable name: complaint_mashpee_court_attachment[i]        
     skip undefined: True
     docx template file: Complaint_-_Mashpee_Wampanoag_Tribal_Court.docx
+---
 
