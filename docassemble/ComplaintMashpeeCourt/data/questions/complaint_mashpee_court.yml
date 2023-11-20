@@ -116,6 +116,51 @@ terms:
   sovereign immunity: |
     the legal doctrine holding that the government cannot be sued without its consent  
 ---
+id: basic questions intro screen
+question: |
+  File a Civil Complaint and Fee Waiver in Mashpee Wampanoag Court
+subquestion: |
+
+  This form can help you complete and file court forms in 3 steps:
+
+
+  Step 1. Answer a few basic questions about yourself and the case. The answers will be use to automatically fill in the correct forms.<br>
+  Step 2. Preview the completed form the make sure your answers look correct. Be sure to change your answers if needed. <br>
+  % if form_approved_for_email_filing:
+  Step 3. Email the form to the court using this secure website and save copies
+  for yourself. Attach any extra forms if you are applying for the Fee Waiver.  
+  % elif al_form_type in ['starts_case','existing_case','appeal']:
+  Step 3. Download and save a copy of the final form. You will have to serve the opposing party in your case
+  % else:
+  Step 3. Download and print the final form. You must serve the other parties in your case.
+  % endif
+  
+  This site is not a lawyer. If you would like a lawyer, find [your local
+  legal aid provider](https://www.lsc.gov/what-legal-aid/find-legal-aid).
+  
+  Tap the {green words} in any screen for a definition or more information.
+  
+  % if chat_partners_available().help:
+  Live help is currently available in this interview. Click the speech bubble
+  (:comment-alt:) in the navigation bar to connect to a live advocate for help.
+  % endif
+fields:
+  - note: |
+      ${ display_template(al_terms_of_use, scrollable=True) }
+  - To continue, you must accept our terms of use: acknowledged_information_use
+    datatype: checkboxes
+    none of the above: False
+    minlength: 1
+    choices:
+      - I accept the terms of use.
+    validation messages:
+      minlength: |
+        You cannot continue unless you agree to the terms of use.
+continue button field: al_intro_screen
+terms:
+  green words: |
+    Green words are legal terms or a short way of referring to something that needs more explanation. The definition or explanation pops up when you tap the green words. 
+---
 comment: |
   This question is used to introduce your interview. Please customize
 id: Complaint_Mashpee_Wampanoag_Tribal_Court
@@ -123,27 +168,27 @@ continue button field: complaint_mashpee_court_intro
 question: |
   Complaint Mashpee Wampanoag Tribal Court
 subquestion: |
-  Instructions for filling out a {Complaint}  at Mashpee Wampanoag Tribal Court:
+  These are the instructions for a plaintiff filling out a {Complaint} at Mashpee Wampanoag Tribal Court. After you click 'Next' the guided interview will begin. 
   
-  Please answer each question. Be as specific as possible.To complete the form you will need to have in hand the following information: 
+  Answer each question as fully as possible. Some questions will ask you to describe certain events. Be as specific as possible. 
   
-  1. Plaintiff: The Plaintiff is the person making the complaint. You will need your name and Tribal ID number - if applicable, you may also need your address and phone number.
+  Please remember, the tribal clerk cannot help you with writing some answers to this interview. The tribal clerk can only assist with procedural questions.
   
-  2. Defendant: The Defendant is the person or tribal department the complaint is about. You will need to know the name of the person or the specific department in the tribe. 
+  The interview will ask you for some information like:
   
-  3. Complaint: Describe problem or complaint and who and what caused it. Dates and names are encouraged. 
+  1. Who is the Plaintiff: The Plaintiff is the person making the complaint. This might be you, or if you are assisting an individual with this form, you will fill in their name. 
   
-  4. Basis of tribal {jurisdiction} mention or attach the constitution or ordinance you are referring to. 
+  2. Who is the Defendant: The Defendant is the person or tribal department the complaint is about. You will need to know the name of the person or the specific department in the tribe. 
+  
+  3. You may be asked to describe problem/legal violation and who or what caused it. Dates and names are encouraged.  
   	
-  5. If you know any tribal law that was violates as part of your statement, state which it is. If not leave it blank. 
-  	
-  6. The tribal clerk cannot help you with this section as it would be constituting as 	legal advise. The tribal clerk can only assist with procedural questions.
-  	
-  7. Explain the relief you are seeking. If you are suing the Tribe, be aware that the tribe has {sovereign immunity}.
+  4. If you know any tribal law that was violated as part of your statement, state which it is. If not leave it blank. 
   
-  8. Please read carefully the Instructions page at the end of this form to know what the next steps will be.  
+  5. You will need your name and Tribal ID number - if applicable, you may also need your address and phone number.
   
-  9. If you have any questions about the procedure of the filling and filing the Complaint, [contact] the Tribal Court.
+  6. If you have any questions about the procedure of the filling and filing the Complaint, [contact] the Tribal Court.
+  
+  After the interview is completed, be sure to carefully read the instructions page at the end of this form. The instructions will tell you what the next steps will be.
   
   [contact]: ${ url_of('https://mashpeewampanoagtribe-nsn.gov/about-the-court')}
  #continue button field: Instructions_for_filling_out_a_Complaint_in_Mashpee_Wampanoag_Tribal_Court
