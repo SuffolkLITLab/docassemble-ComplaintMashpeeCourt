@@ -77,9 +77,9 @@ code: |
   law_violation
   relief_description
   
-  set_progress(20)
- 
   set_progress(40)
+ 
+  set_progress(80)
   if is_against_mashpee: 
     mashpee_department
     defendants.there_are_any = False
@@ -111,11 +111,19 @@ code: |
 ---
 terms:
   jurisdiction: |
-    in law, the authority of a court to hear and determine cases. This authority     is     constitutionally based..
-  Complaint: |
-    legal complaint, or civil complaint, is the first document filed in a case. The purpose of a legal complaint is to lay out all of the facts and reasons why the plaintiff decided to bring the suit, along with the case law that supports his decision to bring the suit.
+    Jurisdiction is the authority of a court to hear and determine cases. A judge from one court may not be able to hear a claim that happened in a different place. 
+  complaint: |
+    Legal complaint, or civil complaint, is the first document filed in a case. The purpose of a legal complaint is to lay out all of the facts and reasons why the plaintiff decided to bring the suit, along with the case law that supports his decision to bring the suit.
   sovereign immunity: |
-    the legal doctrine holding that the government cannot be sued without its consent  
+    Sovereign Immunity is a legal term that refers to a governments 
+  fee waiver: |
+    A fee waiver is the court form that makes it free to file a civil complaint. 
+  plaintiff: |
+    A plaintiff is the person who initiates the lawsuit against a defendant.
+  defendant: |
+    A defendant is the person who a court case is against. For example: Smith v Jones - this shows that 'Smith' is the plaintiff and 'Jones' is the defendant.   
+  relief: |
+    Relief refers to the outcome of the case. The relief or remedy might be that you want money from the defendant. Relief could also restorative justice.
 ---
 id: basic questions intro screen
 question: |
@@ -131,7 +139,7 @@ subquestion: |
   Step 3. Email the form to the court using this secure website and save copies
   for yourself. Attach any extra forms when you are applying for the Fee Waiver.  
   % elif al_form_type in ['starts_case','existing_case','appeal']:
-  Step 3. Download and save a copy of the final form. You will have to serve the opposing party in your case
+  Step 3. Download and save a copy of the final form. You will have to serve the opposing party in your case.
   % else:
   Step 3. Download and print the final form. You must serve the other parties in your case.
   % endif
@@ -169,7 +177,7 @@ continue button field: complaint_mashpee_court_intro
 question: |
   Complaint Mashpee Wampanoag Tribal Court
 subquestion: |
-  These are the instructions for a plaintiff filling out a {Complaint} at the Mashpee Wampanoag Tribal Court. To complete this form, you MUST be eligible and submit a fee waiver.  
+  These are the instructions for a plaintiff filling out a {Complaint} at the Mashpee Wampanoag Tribal Court. To complete this form, you MUST be eligible and submit a {fee waiver}.  
   
   Answer each question as fully as possible. Some questions will ask you to describe certain events. Be as specific as possible. 
   
@@ -177,23 +185,32 @@ subquestion: |
   
   The interview will ask you for some information like:
   
-  1. Who is the Plaintiff: The Plaintiff is the person making the complaint. This might be you, or if you are assisting an individual with this form, you will fill in their name. 
+  1. Who is the {Plaintiff}: The Plaintiff is the person making the complaint. This might be you, or if you are assisting an individual with this form, you will fill in their name. 
   
-  2. Who is the Defendant: The Defendant is the person or tribal department the complaint is about. You will need to know the name of the person or the specific department in the tribe. 
+  2. Who is the {Defendant}: The Defendant is the person or tribal department the complaint is about. You will need to know the name of the person or the specific department in the tribe. 
   
-  3. You may be asked to describe problem/legal violation and who or what caused it. Dates and names are encouraged.  
+  3. You may be asked to describe the problem/legal violation and who or what caused it. Dates and names are encouraged.  
   	
   4. If you know any tribal law that was violated as part of your statement, state which it is. If not leave it blank. 
   
   5. You will need your name and Tribal ID number - if applicable, you may also need your address and phone number.
   
-  6. If you have any questions about the procedure of the filling and filing the Complaint, [contact] the Tribal Court.
+  6. If you have any questions about the procedure of filing the Complaint, [contact] the Tribal Court or an attorney.
   
   After the interview is completed, be sure to carefully read the instructions page at the end of this form. The instructions will tell you what the next steps will be.
   
   [contact]: ${ url_of('https://mashpeewampanoagtribe-nsn.gov/about-the-court')}
  #continue button field: Instructions_for_filling_out_a_Complaint_in_Mashpee_Wampanoag_Tribal_Court
   
+---
+id: Case Description
+question: |
+    What {Relief} or Remedy Are You Seeking
+subquestion: |
+  Be as specific and possible when you describe the type of relief or outcome you want? (For example, restorative justice or restitution)
+fields:  
+  - "Relief description": relief_description
+    input type: area
 ---
 id: Case Description
 question: |
@@ -209,15 +226,6 @@ fields:
 ---
 id: Case Description
 question: |
-  Case Description
-subquestion: |
-       Describe problem or complaint and who and what caused it. Include all dates and names you consider necessary.
-fields:
-  - "Case description": summary_of_case
-    input type: area
----
-id: Case Description
-question: |
     Case Jurisdiction?
 subquestion: |
  (Ex: Constitution, ordinance, etc)
@@ -229,7 +237,7 @@ id: Case Description
 question: |
     Case Violation
 subquestion: |
-       What is the legal basis for your complaint? Identiry the triabal law (either Consituton, Ordinance or Customary Tribal law). If you do not know, please write N/A.
+       What is the legal basis for your complaint? Identify the tribal law or ordinance that has been violated. Be specific if you can. If you do not know, please write N/A.
 fields:
   - "Law violation": law_violation
     input type: area
@@ -239,18 +247,48 @@ continue button field: Affidavit_of_Indigency_intro
 question: |
   Waiver of Court Fees Eligibility Guidelines. 
 subquestion: |
-  Before moving forward, look at the Waiver of Court Fees Eligibility Guidelines linked below. This form is only for people who are eligible for a Fee Waiver. If you make more than the qualifying amount, this form cannot be completed.
+  Before moving forward, look at the Waiver of Court Fees Eligibility Guidelines linked below. This guided interview is only for people who are eligible for a {Fee Waiver}. If you make more than the qualifying amount, this form cannot be completed.
   
   Please see the [Waiver of Court Fees Eligibility Guidelines]. You will be asked to upload documents to verify this answer at the end of the interview.
   [Waiver of Court Fees Eligibility Guidelines]: ${ url_of('https://static1.squarespace.com/static/59ca33c0f09ca4a9c58455a9/t/5a3c59a28165f53e1ebd7fb1/1513904547125/WAIVER-OF-COURT-FEES.pdf')}
 ---
+id: your contact information
+question: |
+  What is your contact information?
+subquestion: |
+  Include **at least one** way to reach you other than by mail.
+
+  ${ collapse_template(why_contact_info_needed_template) }
+fields:  
+  - Mobile number: users[0].mobile_number
+    required: False
+  - Other phone number: users[0].phone_number
+    required: False
+  - Email address: users[0].email    
+    datatype: email
+    required: False
+  - Other ways to reach you: users[0].other_contact_method
+    input type: area
+    required: False
+    help: |
+      If you do not have a phone number or email, please provide
+      an alternative contact method. For example, use may use friend's phone number.
+      But the friend must be someone you can rely on to give you a
+      message.
+validation code: |
+  if (not showifdef('users[0].phone_number') and \
+      (not showifdef('users[0].mobile_number')) and \
+      (not showifdef('users[0].email')) and \
+      (not showifdef('users[0].other_contact_method'))):
+    validation_error(word("You need to provide at least one contact method."), field="users[0].other_contact_method")
+---
 id: Case Description
 question: |
-    Relief or remedy desired
+  Case Description
 subquestion: |
-  What relief or remedy are you seeking? (For example, restorative justice or restitution)
-fields:  
-  - "Relief description": relief_description
+  Describe the problem or issue in detail. Be specific. Use names and describe who/what caused the issue. Include all dates and names you consider necessary.
+fields:
+  - "Case description": summary_of_case
     input type: area
 ---
 id: Against Mashpee
@@ -299,7 +337,7 @@ sets:
     - users[0].name.middle
     - users[0].name.suffix
 question:  |
-  What is the name of the plaintiff? 
+  What is the full name of the {plaintiff}? 
 fields:
   - code: |
       users[0].name_fields()
@@ -308,7 +346,7 @@ id: Confirmation of Understanding
 question: |
   Confirm you understand
 subquestion: |
-  I swear or affirm by signing below that I have read this complaint and that to the best of my knowledge, the facts stated are true and correct. I Understand that it is my responsibility to provide a copy of this Complaint to each and every Defendant. I must provide proof to the Tribal Court that this complaint has been served before the action can proceed
+  I swear or affirm by signing below that I have read this complaint and that to the best of my knowledge, the facts stated are true and correct. I understand that it is my responsibility to provide a copy of this complaint to each and every {Defendant}. I must provide proof to the Tribal Court that this complaint has been served before the action can proceed.
 fields:
   - To continue, you must confirm you understand the swear clause: does_confirm_understanding
     datatype: checkboxes
@@ -432,7 +470,6 @@ columns:
 edit:
   - name.first
 confirm: True
-
 ---
 id: download complaint_mashpee_court
 event: complaint_mashpee_court_download
