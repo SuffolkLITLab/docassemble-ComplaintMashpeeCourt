@@ -102,6 +102,7 @@ code: |
   Affidavit_of_Indigency_intro
   interview_order_complaint_mashpee_court
   signature_date
+  the_doc
   # Save anonymized interview statistics (customize the saved data below)
   store_variables_snapshot(data={'zip': users[0].address.zip})
   complaint_mashpee_court_preview_question
@@ -124,6 +125,8 @@ terms:
     A defendant is the person who a court case is against. For example: Smith v Jones - this shows that 'Smith' is the plaintiff and 'Jones' is the defendant.   
   relief: |
     Relief refers to the outcome of the case. The relief or remedy might be that you want money from the defendant. Relief could also restorative justice.
+  served: |
+    A plaintiff in a court case must deliver a notice that a civil complaint has been filed, to every defendant named in the complaint. This can be done by you or another aiuthorized individual.
 ---
 id: basic questions intro screen
 question: |
@@ -134,7 +137,9 @@ subquestion: |
 
 
   Step 1. Answer a few basic questions about yourself and the case. The answers will be used to automatically fill in the correct form(s).<br>
+  
   Step 2. Preview the completed form to make sure your answers look correct. Be sure to change your answers if needed. <br>
+  
   % if form_approved_for_email_filing:
   Step 3. Email the form to the court using this secure website and save copies
   for yourself. Attach any extra forms when you are applying for the Fee Waiver.  
@@ -175,7 +180,7 @@ comment: |
 id: Complaint_Mashpee_Wampanoag_Tribal_Court
 continue button field: complaint_mashpee_court_intro
 question: |
-  Complaint Mashpee Wampanoag Tribal Court
+  Mashpee Wampanoag Tribal Court - Filing a Civil Complaint and Fee Waiver
 subquestion: |
   These are the instructions for a plaintiff filling out a {Complaint} at the Mashpee Wampanoag Tribal Court. To complete this form, you MUST be eligible and submit a {fee waiver}.  
   
@@ -195,7 +200,7 @@ subquestion: |
   
   5. You will need your name and Tribal ID number - if applicable, you may also need your address and phone number.
   
-  6. If you have any questions about the procedure of filing the Complaint, [contact] the Tribal Court or an attorney.
+  If you have any questions about the procedure of filing the Complaint, [contact] the Tribal Court or an attorney. 
   
   After the interview is completed, be sure to carefully read the instructions page at the end of this form. The instructions will tell you what the next steps will be.
   
@@ -282,6 +287,15 @@ validation code: |
       (not showifdef('users[0].other_contact_method'))):
     validation_error(word("You need to provide at least one contact method."), field="users[0].other_contact_method")
 ---
+id: upload_docs
+question: |
+  Upload a PDF file.
+subquestion: |
+  Please upload a document that proves your income. W2 or other tax files.
+fields:
+  - File: the_doc
+    datatype: file
+---
 id: Case Description
 question: |
   Case Description
@@ -346,9 +360,9 @@ id: Confirmation of Understanding
 question: |
   Confirm you understand
 subquestion: |
-  I swear or affirm by signing below that I have read this complaint and that to the best of my knowledge, the facts stated are true and correct. I understand that it is my responsibility to provide a copy of this complaint to each and every {Defendant}. I must provide proof to the Tribal Court that this complaint has been served before the action can proceed.
+  I swear or affirm by signing below that I have read this complaint and that to the best of my knowledge, the facts stated are true and correct. I understand that it is my responsibility to provide a copy of this complaint to each and every {Defendant}. I must provide proof to the Tribal Court that this complaint has been {served} before the action can proceed.
 fields:
-  - To continue, you must confirm you understand the swear clause: does_confirm_understanding
+  - To continue, you must confirm your understanding of, and agree to the statement above: does_confirm_understanding
     datatype: checkboxes
     none of the above: False    
     minlength: 1
@@ -356,7 +370,7 @@ fields:
       - I understand: Yes
     validation messages:
       minlength: |
-        You cannot continue unless you swear and agree understanding.
+        You cannot continue unless you swear and agree to understanding the certification above.
 ---
 code: |
   # This is a placeholder for the addresses that will be searched
@@ -481,7 +495,6 @@ subquestion: |
   View, download and send your form below. Click the "Edit answers" button to fix any mistakes.
 
   ${ action_button_html(url_action('review_complaint_mashpee_court'), label='Edit answers', color='info') }
-  
   
   ${ al_user_bundle.download_list_html() }
   
