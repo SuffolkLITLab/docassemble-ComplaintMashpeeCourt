@@ -1,0 +1,376 @@
+---
+include:
+  - docassemble.AssemblyLine:assembly_line.yml
+---
+metadata:
+  title: |
+    Affidavit of Indigency: Request of Waiver of Fees & Cost
+  short title: |
+    Affidavit of Indigency: Request of Waiver of Fees & Cost
+  tags:
+    - Other
+  authors:
+    - Kajol Raju
+    - Christopher Emrich
+---
+code: |
+  interview_metadata['main_interview_key'] =  'Affidavit_of_Indigency'
+---
+code: |
+  # This controls the default country and list of states in address field questions
+  AL_DEFAULT_COUNTRY = "US"
+---
+code: |
+  # This controls the default state in address field questions
+  AL_DEFAULT_STATE = "MA"
+---
+code: |
+  github_repo_name =  'docassemble-AffidavitOfIndigency'
+---
+code: |
+  interview_short_title = "File a Affidavit of Indigency AND Request for Waiver of Fees & Cost"
+---
+code: |
+  al_form_type = "existing_case" 
+---
+objects:
+  - users: ALPeopleList.using(there_are_any=True)
+---
+sections:
+  - review_Affidavit_of_Indigency: Review your answers
+---
+###################### Main order ######################
+comment: |
+  This block includes the logic for standalone interviews.
+  Delete mandatory: True to include in another interview
+code: |
+  al_intro_screen
+  Affidavit_of_Indigency_intro
+  interview_order_Affidavit_of_Indigency
+  signature_date
+  # Store anonymous data for analytics / statistics
+  store_variables_snapshot(
+      persistent=True,
+      data={
+          "zip": showifdef("users[0].address.zip"),
+          "reached_interview_end": True,
+      },
+  )
+  Affidavit_of_Indigency_download
+---
+comment: |
+  this is information on what paperwork is needed along with this AOI itself. 
+question: |
+  Required Paperwork to file. 
+subquestion: |
+  The Affidavit of Indigency is a formal legal form than an individual submits to the Court stating their inability to pay a fee associated with their case because of financial reasons. 
+  
+  You will need to following documents in order to file this form with the court:
+  
+  - information on your personal take home pay from all employment sources
+  
+  - receipt of a copy of the Mashpee Wampanoag Tribal Court Waiver of Court Fees
+  
+  - documentation to verify ALL household income
+  
+  These forms may include:
+  
+  - W2 tax forms
+  
+  - financial document that show income
+  
+  *Note: You will submit these documents via mail or in person when you print the form at the very end. You will mail or deliver to the court all documents.* 
+  
+continue button field: Do_I_need_this_form
+---
+comment: |
+  This question is used to introduce your interview. Please customize
+id: Affidavit_of_Indigency_AND_Request_of_Waiver_of_Fees__Cost
+continue button field: Affidavit_of_Indigency_intro
+question: |
+  Waiver of Court Fees Eligibility Guidelines. 
+subquestion: |
+  Before moving forward look at the Waiver of Court Fees Eligibility Guidelines linked below. If you do not fall into the financial range per household member, this form may not be for you.
+  
+  Please see the [Waiver of Court Fees Eligibility Guidelines].
+  [Waiver of Court Fees Eligibility Guidelines]: ${ url_of('https://static1.squarespace.com/static/59ca33c0f09ca4a9c58455a9/t/5a3c59a28165f53e1ebd7fb1/1513904547125/WAIVER-OF-COURT-FEES.pdf')}
+
+---
+id: What is your name
+question: |
+  If you are the applying for the waiver, please give us your name?
+fields:
+  - "Applicant full name": user_role1
+    maxlength: 16
+  - "Full name of anitpcated opposing party": user_role2
+    maxlength: 16
+subquestion: |   
+  If you do not know of the opposing party yet, fill in *N/A*"
+---
+id: Have you already filed a case
+question: |
+  Have you already filed a case with the Court?
+subquestion: |
+  Provide your current case number, if you were provided on with the Court. If you DO NOT have a case number, wirte "N/A".
+fields:
+  - "Court provided case number": case_num
+    maxlength: 16
+---
+id: If you already have an ongoing case who is the Defendant
+question: |
+  If you already have an ongoing case, who is the Defendant?
+subquestion: |
+  If you DID NOT file a case/if there is no Defendant, write "N/A".
+fields:
+  - "Defendant": defendant_mashpee
+    maxlength: 16
+---
+id: address
+question: |
+    Address
+subquestion: |
+  Please provide $ ( user_role1 ) address.
+fields:
+  - "Address": users1addressaddress
+    maxlength: 16
+---
+id: is mailing address different
+question: |
+  Is your address different from your mailing address?
+fields:
+ - "Yes, my mailing address is different": mailing_address
+ - note: Leave blank if No, re-enter address.
+
+continue button field: mailing_address
+---
+id: Do you receive public assistance
+question: |
+  Do you receive public assistance?
+field: public_assistance
+buttons:
+- "Yes"
+- "No" 
+---
+id: If yes, please check all that apply to you
+question: |
+  If yes, please check all that apply to you.
+subquestion: |
+  Which public assistant services do you currently receive?
+fields:
+  - "Transitional Aid to Families with Dependent Children": tafdc__box
+    datatype: yesno
+  - "Emergency Aid to Elderly, Disabled or Children": eaedc_box
+    datatype: yesno
+  - "Supplemental Security Income": SSI_box
+    datatype: yesno
+  - "Medicaid (MassHealth) ": mass_health
+    datatype: yesno
+  - "Massachusetts Veterans Benefits Programs ": mvpb_box
+    datatype: yesno
+---
+id:  personal_take_home_pay_box
+question: |
+  If you do not recieve any public asssistance, can you provide your personal take home pay.
+yesno: personal_take_home_pay_box
+    
+---
+id:
+question: |
+  What is your personal take home pay?
+subquestion: |
+  Provide how much you roughly bring home in a year.
+fields:
+  - "Pay per year": pay_per_year
+    datatype: currency
+    min: 0
+---
+id: How many people are in your household currently
+question: |
+  How many people are in your household currently?
+fields:
+  - "Number in household": number_in_household
+    datatype: number
+---
+id: What is other income for your household
+question: |
+  What is other income for your household?
+subquestion: |
+  Please include other forms of income (example: rent from boarders, passive income, etc...)
+fields:
+  - "Other income": other_income
+    input type: area
+    maxlength: 16
+---
+id: Acknowledge Receipt
+question: |
+  Acknowledge Receipt
+subquestion: |
+  By checking this box you acknowledge receipt of a copy of the Mashpee Wampanoag Tribal Court Waiver of Court Fees Guidelines for the
+  current year and my income falls below the Guidelines.
+fields:
+  - "Acknowledge receipt box": acknowledge_receipt_box
+    datatype: yesno
+---
+id: Please sign below
+question: |
+  Please sign below
+fields:
+  - "Users1signature": users1signature
+    maxlength: 16
+---
+id: preview Affidavit_of_Indigency
+question: |
+  Preview your form before you sign it
+subquestion: |
+  Here is a preview of the form you will sign on the next page.   
+  
+  ${ al_court_bundle.as_pdf(key='preview') }
+
+  Click the image to open it in a new tab. Click the "Edit answers" button
+  to edit your answers.
+
+  ${ action_button_html(url_action('review_Affidavit_of_Indigency'), label='Edit answers', color='info') }
+  
+  Remember to come back to this window to continue and sign your form.
+continue button field: Affidavit_of_Indigency_preview_question    
+---
+code: |
+  signature_fields = []
+---
+code: |
+  # This is a placeholder for the addresses that will be searched
+  # for matching address to court. Edit if court venue is based on 
+  # a different address than the user's
+  [user.address.address for user in users.complete_elements()]
+  addresses_to_search = [user.address for user in users.complete_elements()]
+---
+id: Affidavit of Indigency review screen
+event: review_Affidavit_of_Indigency
+question: |
+  Review your answers
+review:
+  - Edit: user_role1
+    button: |
+      **User role1**:
+      ${ user_role1 }
+  - Edit: case_num
+    button: |
+      **Case num**:
+      ${ case_num }
+  - Edit: defendant_mashpee
+    button: |
+      **Defendant mashpee**:
+      ${ defendant_mashpee }
+  - Edit: user_role2
+    button: |
+      **User role2**:
+      ${ user_role2 }
+  - Edit: users1addressaddress
+    button: |
+      **Users1addressaddress**:
+      ${ users1addressaddress }
+  - Edit: mailing_address
+    button: |
+      **Mailing address**:
+      ${ mailing_address }
+  - Edit: public_assistance
+    button: |
+      **Public assistance**:
+      ${ word(yesno(public_assistance)) }
+  - Edit: tafdc__box
+    button: |
+      **Tafdc  box**:
+      ${ word(yesno(tafdc__box)) }
+  - Edit: eaedc_box
+    button: |
+      **Eaedc box**:
+      ${ word(yesno(eaedc_box)) }
+  - Edit: SSI_box
+    button: |
+      **Ssi box**:
+      ${ word(yesno(SSI_box)) }
+  - Edit: mass_health
+    button: |
+      **Mass health**:
+      ${ word(yesno(mass_health)) }
+  - Edit: mvpb_box
+    button: |
+      **Mvpb box**:
+      ${ word(yesno(mvpb_box)) }
+  - Edit: personal_take_home_pay_box
+    button: |
+      **Personal take home pay box**:
+      ${ word(yesno(personal_take_home_pay_box)) }
+  - Edit: pay_per_year
+    button: |
+      **Pay per year**:
+      ${ currency(pay_per_year) }
+  - Edit: number_in_household
+    button: |
+      **Number in household**:
+      ${ number_in_household }
+  - Edit: other_income
+    button: |
+      **Other income**:
+      > ${ single_paragraph(other_income) }
+  - Edit: acknowledge_receipt_box
+    button: |
+      **Acknowledge receipt box**:
+      ${ word(yesno(acknowledge_receipt_box)) }
+  - Edit: signature_date
+    button: |
+      **Date of signature**:
+      ${ signature_date }
+  - Edit: users1signature
+    button: |
+      **Users1signature**:
+      ${ users1signature }
+---
+# ALDocument objects specify the metadata for each template
+objects:
+  - Affidavit_of_Indigency_Post_interview_instructions: ALDocument.using(title="Instructions", filename="Affidavit_of_Indigency_next_steps.docx", enabled=True, has_addendum=False)
+  - Affidavit_of_Indigency_attachment: ALDocument.using(title="Affidavit of Indigency AND Request of Waiver of Fees & Cost", filename="Affidavit_of_Indigency", enabled=True, has_addendum=False, )
+---
+# Bundles group the ALDocuments into separate downloads, such as for court and for the user
+objects:
+  - al_user_bundle: ALDocumentBundle.using(elements=[Affidavit_of_Indigency_Post_interview_instructions, Affidavit_of_Indigency_attachment], filename="Affidavit_of_Indigency", title="All forms to download for your records", enabled=True)
+  - al_court_bundle: ALDocumentBundle.using(elements=[Affidavit_of_Indigency_attachment],  filename="Affidavit_of_Indigency", title="All forms to deliver to court", enabled=True)
+---
+# Each attachment defines a key in an ALDocument. We use `i` as the placeholder here so the same template is 
+# used for "preview" and "final" keys, and logic in the template checks the value of 
+# `i` to show or hide the user's signature
+attachment:
+  name: Post-interview-Instructions
+  filename: Affidavit_of_Indigency_next_steps
+  docx template file: Affidavit_of_Indigency_next_steps.docx
+  variable name: Affidavit_of_Indigency_Post_interview_instructions[i]
+  skip undefined: True
+---
+attachment:
+  name: Affidavit of Indigency
+  filename: Affidavit_of_Indigency
+  variable name: Affidavit_of_Indigency_attachment[i]
+  skip undefined: True
+  pdf template file: Affidavit_of_Indigency.pdf
+  fields:
+      - "user_role1": ${ user_role1 }
+      - "case_num": ${ case_num }
+      - "defendant_mashpee": ${ defendant_mashpee }
+      - "user_role2": ${ user_role2 }
+      - "users1.address.address": ${ users1addressaddress }
+      - "mailing_address": ${ mailing_address }
+      - "public_assistance": ${ public_assistance }
+      - "tafdc__box": ${ tafdc__box }
+      - "eaedc_box": ${ eaedc_box }
+      - "SSI_box": ${ SSI_box }
+      - "mass_health": ${ mass_health }
+      - "mvpb_box": ${ mvpb_box }
+      - "personal_take_home_pay_box": ${ personal_take_home_pay_box }
+      - "pay_per_year": ${ currency(pay_per_year) }
+      - "number_in_household": ${ "{:,.2f}".format(number_in_household) }
+      - "other_income": ${ other_income }
+      - "acknowledge_receipt_box": ${ acknowledge_receipt_box }
+      - "signature_date": ${ signature_date }
+      - "users1.signature": ${ users1signature }
+
+
