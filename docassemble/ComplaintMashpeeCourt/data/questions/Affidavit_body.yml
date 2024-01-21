@@ -89,11 +89,11 @@ code: |
   )
 ---
 comment: |
-  this is information on what paperwork is needed along with this AOI itself. 
+  This is information on what paperwork is needed along with this AOI itself. 
 question: |
-  Required Paperwork to file.
+  This Form Can Also Help You File a {Fee Waiver}
 subquestion: |
-  The Affidavit of Indigency is a formal legal form than an individual submits to the Court stating their inability to pay a fee associated with their case because of financial reasons. 
+  The Affidavit of Indigency, otherwise known as a {Fee Waiver}, lets someone file a complaint for free. To qualify, your income must be below a certain level.
   
   You will need to following documents in order to file this form with the court:
   
@@ -109,7 +109,7 @@ subquestion: |
   
   - financial document that show income
   
-  *Note: You will submit these documents via mail or in person when you print the form at the very end. You will mail or deliver to the court all documents.* 
+  *Note: If you qualify for a fee waiver, this application can submit your documents to the court for you. If you do not qualify for a fee waiver, you must submit these documents and the required cost, to the tribal court.* 
   
 continue button field: Do_I_need_this_form
 ---

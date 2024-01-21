@@ -181,9 +181,11 @@ comment: |
 id: Complaint_Mashpee_Wampanoag_Tribal_Court
 continue button field: complaint_mashpee_court_intro
 question: |
-  Mashpee Wampanoag Tribal Court - Filing a Civil Complaint and Fee Waiver
+  Mashpee Wampanoag Tribal Court - Filing a Civil Complaint
 subquestion: |
-  These are the instructions for a plaintiff filling out a {Complaint} at the Mashpee Wampanoag Tribal Court. This form also allows the user to file a {fee waiver}. If you do not fil 
+  This guided interview will help you fill out a civil {Complaint} at the Mashpee Wampanoag Tribal Court. 
+  
+  You also have the option of filing a {Fee Waiver}, but you do not have to.
   
   Answer each question as fully as possible. Some questions will ask you to describe certain events. Be as specific as possible. 
   
@@ -251,8 +253,10 @@ fields:
 id: Affidavit_of_Indigency_AND_Request_of_Waiver_of_Fees__Cost
 continue button field: Affidavit_of_Indigency_intro
 question: |
-  Would you like to complete both the fee waiver and complaint, or just the complaint form? 
+  Would you like to file a {Fee Waiver}? 
 subquestion: |
+  This interview will assist you in completing a civil complaint. This interview can also help you file a {Fee Waiver} if you qualify. 
+
   Before moving forward, look at the [Waiver of Court Fees Eligibility Guidelines]. 
 
   Click this link above to quickly check if you qualify for a {Fee Waiver}. If you do not qualify or do not wish to submit a fee waiver form, you can still complete this form. However, you will then be required to submit your civil complaint to the court yourself.
