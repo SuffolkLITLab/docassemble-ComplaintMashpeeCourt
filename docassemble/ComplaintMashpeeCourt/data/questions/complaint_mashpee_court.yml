@@ -183,7 +183,7 @@ continue button field: complaint_mashpee_court_intro
 question: |
   Mashpee Wampanoag Tribal Court - Filing a Civil Complaint and Fee Waiver
 subquestion: |
-  These are the instructions for a plaintiff filling out a {Complaint} at the Mashpee Wampanoag Tribal Court. To complete this form, you MUST be eligible and submit a {fee waiver}.  
+  These are the instructions for a plaintiff filling out a {Complaint} at the Mashpee Wampanoag Tribal Court. This form also allows the user to file a {fee waiver}. If you do not fil 
   
   Answer each question as fully as possible. Some questions will ask you to describe certain events. Be as specific as possible. 
   
@@ -501,6 +501,13 @@ subquestion: |
   ${ al_user_bundle.download_list_html() }
 
   ${ al_user_bundle.send_button_html(show_editable_checkbox=True) }
+  
+attachment:
+  name: Post-interview-Instructions
+  filename: Affidavit_of_Indigency_next_steps
+  docx template file: Affidavit_of_Indigency_next_steps.docx
+  variable name: Affidavit_of_Indigency_Post_interview_instructions[i]
+  skip undefined: True
 
 progress: 100
 ---
