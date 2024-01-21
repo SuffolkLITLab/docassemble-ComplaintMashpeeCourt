@@ -181,7 +181,7 @@ comment: |
 id: Complaint_Mashpee_Wampanoag_Tribal_Court
 continue button field: complaint_mashpee_court_intro
 question: |
-  Mashpee Wampanoag Tribal Court - Filing a Civil Complaint
+  File a Civil Complaint in Mashpee Wampanoag Tribal Court 
 subquestion: |
   This guided interview will help you fill out a civil {Complaint} at the Mashpee Wampanoag Tribal Court. 
   
