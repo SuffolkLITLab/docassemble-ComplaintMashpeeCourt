@@ -495,23 +495,14 @@ subquestion: |
   
   View, download and send your form below. Click the "Edit answers" button to fix any mistakes.
 
-  ${ action_button_html(url_action('review_complaint_mashpee_court'), label='Edit answers', color='info') }
-  
+  ${ action_button_html(url_action('review_Affidavit_of_Indigency'), label='Edit answers for fee waiver', color='info') }
+  ${ action_button_html(url_action('review_complaint_mashpee_court'), label='Edit answers for complaint', color='info') }
+
   ${ al_user_bundle.download_list_html() }
-  
 
   ${ al_user_bundle.send_button_html(show_editable_checkbox=True) }
 
 progress: 100
-# Each attachment defines a key in an ALDocument. We use `i` as the placeholder here so the same template is 
-# used for "preview" and "final" keys, and logic in the template checks the value of 
-# `i` to show or hide the user's signature
-attachment:
-  name: Post-interview-Instructions
-  filename: Affidavit_of_Indigency_next_steps
-  docx template file: Affidavit_of_Indigency_next_steps.docx
-  variable name: Affidavit_of_Indigency_Post_interview_instructions[i]
-  skip undefined: True
 ---
 objects:
   - complaint_mashpee_court_post_interview_instructions: ALDocument.using(title="Instructions", filename="complaint_mashpee_court_next_steps.docx", enabled=True, has_addendum=False, default_overflow_message=AL_DEFAULT_OVERFLOW_MESSAGE)
