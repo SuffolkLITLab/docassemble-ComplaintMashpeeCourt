@@ -503,7 +503,7 @@ subquestion: |
   ${ al_user_bundle.send_button_html(show_editable_checkbox=True) }
   
 attachment:
-  name: Post-interview-Instructions
+  name: Fee Waiver Instructions
   filename: Affidavit_of_Indigency_next_steps
   docx template file: Affidavit_of_Indigency_next_steps.docx
   variable name: Affidavit_of_Indigency_Post_interview_instructions[i]
