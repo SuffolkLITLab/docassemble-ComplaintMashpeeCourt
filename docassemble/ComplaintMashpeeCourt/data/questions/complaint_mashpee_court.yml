@@ -1,7 +1,7 @@
 ---
 include:
   - docassemble.AssemblyLine:al_package.yml
-  - docassemble.ALAffidavitOfIndigency:affidavit_body.yml
+  - Affidavit_body.yml
 ---
 metadata:
   title: |
@@ -99,6 +99,7 @@ mandatory: True
 code: |
   al_intro_screen
   complaint_mashpee_court_intro
+  Do_I_need_this_form
   Affidavit_of_Indigency_intro
   interview_order_complaint_mashpee_court
   signature_date
@@ -502,6 +503,15 @@ subquestion: |
   ${ al_user_bundle.send_button_html(show_editable_checkbox=True) }
 
 progress: 100
+# Each attachment defines a key in an ALDocument. We use `i` as the placeholder here so the same template is 
+# used for "preview" and "final" keys, and logic in the template checks the value of 
+# `i` to show or hide the user's signature
+attachment:
+  name: Post-interview-Instructions
+  filename: Affidavit_of_Indigency_next_steps
+  docx template file: Affidavit_of_Indigency_next_steps.docx
+  variable name: Affidavit_of_Indigency_Post_interview_instructions[i]
+  skip undefined: True
 ---
 objects:
   - complaint_mashpee_court_post_interview_instructions: ALDocument.using(title="Instructions", filename="complaint_mashpee_court_next_steps.docx", enabled=True, has_addendum=False, default_overflow_message=AL_DEFAULT_OVERFLOW_MESSAGE)
