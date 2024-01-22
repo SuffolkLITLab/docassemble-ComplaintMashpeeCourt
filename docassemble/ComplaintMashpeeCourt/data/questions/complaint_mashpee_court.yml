@@ -64,7 +64,7 @@ comment: |
 id: interview_order_complaint_mashpee_court
 code: |
   # Set the allowed courts for this interview
-  allowed_courts = interview_metadata["complaint_mashpee_court"]["allowed courts"]
+  # allowed_courts = interview_metadata["complaint_mashpee_court"]["allowed courts"]
   nav.set_section('review_complaint_mashpee_court')
   user_role = 'plaintiff'
   users.gather()
@@ -100,7 +100,8 @@ code: |
   al_intro_screen
   complaint_mashpee_court_intro
   Do_I_need_this_form
-  Affidavit_of_Indigency_intro
+  if evaluate_fee_waiver: 
+    interview_order_Affidavit_of_Indigency
   interview_order_complaint_mashpee_court
   signature_date
   the_doc
@@ -109,6 +110,10 @@ code: |
   complaint_mashpee_court_preview_question
   basic_questions_signature_flow
   users[0].signature
+  if evaluate_fee_waiver: 
+    listofdownloads=[complaint_mashpee_court_post_interview_instructions,complaint_mashpee_court_attachment, Affidavit_of_Indigency_attachment]
+  else: 
+    listofdownloads=[complaint_mashpee_court_post_interview_instructions,complaint_mashpee_court_attachment]
   complaint_mashpee_court_download
 ---
 terms:
@@ -505,17 +510,9 @@ subquestion: |
 
   ${ action_button_html(url_action('review_Affidavit_of_Indigency'), label='Edit answers for fee waiver', color='info') }
   ${ action_button_html(url_action('review_complaint_mashpee_court'), label='Edit answers for complaint', color='info') }
-
   ${ al_user_bundle.download_list_html() }
 
   ${ al_user_bundle.send_button_html(show_editable_checkbox=True) }
-  
-attachment:
-  name: Fee Waiver Instructions
-  filename: Affidavit_of_Indigency_next_steps
-  docx template file: Affidavit_of_Indigency_next_steps.docx
-  variable name: Affidavit_of_Indigency_Post_interview_instructions[i]
-  skip undefined: True
 
 progress: 100
 ---
@@ -524,7 +521,7 @@ objects:
   - complaint_mashpee_court_attachment: ALDocument.using(title="Complaint Mashpee Wampanoag Tribal Court", filename="Complaint_-_Mashpee_Wampanoag_Tribal_Court.docx", enabled=True, has_addendum=False, default_overflow_message=AL_DEFAULT_OVERFLOW_MESSAGE)
 ---
 objects:
-  - al_user_bundle: ALDocumentBundle.using(elements=[complaint_mashpee_court_post_interview_instructions,complaint_mashpee_court_attachment], filename="complaint_mashpee_court.docx_package.pdf", title="All forms to download for your records", enabled=True)
+  - al_user_bundle: ALDocumentBundle.using(elements=listofdownloads, filename="complaint_mashpee_court.docx_package.pdf", title="All forms to download for your records", enabled=True)
   - al_court_bundle: ALDocumentBundle.using(elements=[complaint_mashpee_court_attachment], filename="complaint_mashpee_court.docx_package.pdf", title="All forms to download for your records", enabled=True)
 ---
 attachments:
