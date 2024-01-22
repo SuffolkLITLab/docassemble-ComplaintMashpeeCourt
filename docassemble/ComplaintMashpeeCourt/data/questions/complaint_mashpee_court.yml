@@ -260,7 +260,7 @@ continue button field: Affidavit_of_Indigency_intro
 question: |
   Would you like to file a {Fee Waiver}? 
 subquestion: |
-  This interview will assist you in completing a civil complaint. This interview can also help you file a {Fee Waiver} if you qualify. 
+  This interview will assist you in completing a civil {complaint}. This interview can also help you file a {Fee Waiver} if you qualify. 
 
   Before moving forward, look at the [Waiver of Court Fees Eligibility Guidelines]. 
 
@@ -358,7 +358,7 @@ combobox:
       - MWT TERO: MWT TERO
       - Tribal Administrator: Tribal Administrator
 ---
-id: your name
+id: What is your name
 sets:
     - users[0].name.first
     - users[0].name.last
