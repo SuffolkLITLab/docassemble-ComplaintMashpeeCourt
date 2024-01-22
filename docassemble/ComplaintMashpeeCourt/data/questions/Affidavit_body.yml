@@ -108,6 +108,9 @@ subquestion: |
   - W2 tax forms
   
   - financial document that show income
+
+  [Use this link to quickly check if you qualify for a fee waiver](https://static1.squarespace.com/static/59ca33c0f09ca4a9c58455a9/t/5a3c59a28165f53e1ebd7fb1/1513904547125/WAIVER-OF-COURT-FEES.pdf)
+
   
   *Note: If you qualify for a fee waiver, this application can submit your documents to the court for you. If you do not qualify for a fee waiver, you must submit these documents and the required cost, to the tribal court.* 
   
@@ -120,7 +123,7 @@ continue button field: Affidavit_of_Indigency_intro
 question: |
   Waiver of Court Fees Eligibility Guidelines. 
 subquestion: |
-  Before moving forward look at the Waiver of Court Fees Eligibility Guidelines linked below. This is the { fee waiver } form. If you do not qualify fo rthe fee waiver, or choose to not submit that form, you will have to submit your documents to the court yourself.
+  Before moving forward look at the Waiver of Court Fees Eligibility Guidelines linked below. This is the { fee waiver } form. If you do not qualify for the fee waiver, or choose to not submit that form, you will have to submit your documents to the court yourself.
   
   Please see the [Waiver of Court Fees Eligibility Guidelines].
   [Waiver of Court Fees Eligibility Guidelines]: ${ url_of('https://static1.squarespace.com/static/59ca33c0f09ca4a9c58455a9/t/5a3c59a28165f53e1ebd7fb1/1513904547125/WAIVER-OF-COURT-FEES.pdf')}
