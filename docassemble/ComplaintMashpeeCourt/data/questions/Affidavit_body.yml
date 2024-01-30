@@ -66,7 +66,7 @@ code: |
   set_progress(48)
   other_income
   acknowledge_receipt_box
-  users[0].signature
+  users[0].signature = True
   set_progress(64)
   signature_date
   interview_order_Affidavit_of_Indigency = True
@@ -98,7 +98,7 @@ subquestion: |
   
   The court needs to verify your income by looking at certain kinds of documents documents that show your reported income. 
   
-  You may also use a previously accepted receipt of a Mashpee Wampanoag Tribal Court Waiver of Court Fees. 
+  You may also use a receipt of apreviously accepted Mashpee Wampanoag Tribal Court Waiver of Court Fees. 
   
   **These forms may include**:
   
@@ -124,7 +124,10 @@ subquestion: |
 
   Before moving forward, look at the [Waiver of Court Fees Eligibility Guidelines].
   
-  Click the link above to quickly check if you qualify for a {Fee Waiver}. If you do not qualify or do not wish to submit a fee waiver form, you can still complete this form. However, you will then be required to submit your civil complaint to the court yourself.
+  Click the link above to quickly check if you qualify for a {Fee Waiver}. If you do not qualify or do not wish to submit a fee waiver form, you can still complete this form. 
+
+  *Note: If you do not submit a fee waiver, you will have to submit this form to the court, with the required fees.*
+  
   [Waiver of Court Fees Eligibility Guidelines]: ${ url_of('https://static1.squarespace.com/static/59ca33c0f09ca4a9c58455a9/t/5a3c59a28165f53e1ebd7fb1/1513904547125/WAIVER-OF-COURT-FEES.pdf')}
 field: evaluate_fee_waiver
 buttons:
@@ -168,9 +171,9 @@ buttons:
 ---
 id: If yes, please check all that apply to you
 question: |
-  If yes, please check all that apply to you.
+  Do you recieve public aid?
 subquestion: |
-  Which public assistant services do you currently receive?
+  If you do not recieve public aid, please click next.
 fields:
   - "Transitional Aid to Families with Dependent Children": tafdc__box
     datatype: yesno
