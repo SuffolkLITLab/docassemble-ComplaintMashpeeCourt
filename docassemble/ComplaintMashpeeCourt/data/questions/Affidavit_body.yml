@@ -50,11 +50,12 @@ code: |
   user_role = "plaintiff"
   user_ask_role = "plaintiff"
   Do_I_need_this_form
-  user_role1
+  users.gather()
+  defendants.gather()
   case_num
   set_progress(16)
   
-  users1addressaddress
+  users[0].address.block()
   mailing_address
   public_assistance
   set_progress(32)
@@ -65,7 +66,7 @@ code: |
   set_progress(48)
   other_income
   acknowledge_receipt_box
-  users1signature
+  users[0].signature
   set_progress(64)
   signature_date
   interview_order_Affidavit_of_Indigency = True
@@ -134,17 +135,6 @@ buttons:
   - "Fee waiver + Complaint": True
   - "Complaint only": False
 ---
-id: What is your name
-question: |
-  If you are the applying for the waiver, please give us your name?
-fields:
-  - "Applicant full name": user_role1
-    maxlength: 32
-  - "Full name of anitpcated opposing party": user_role2
-    maxlength: 32
-subquestion: |   
-  If you do not know of the opposing party yet, fill in *N/A*"
----
 id: Have you already filed a case
 question: |
   Have you already filed a case with the Court?
@@ -161,15 +151,6 @@ subquestion: |
   If you DID NOT file a case/if there is no Defendant, write "N/A".
 fields:
   - "Defendant": defendant_mashpee
-    maxlength: 16
----
-id: address
-question: |
-    Address
-subquestion: |
-  Please provide $ ( user_role1 ) address.
-fields:
-  - "Address": users1addressaddress
     maxlength: 16
 ---
 id: is mailing address different
@@ -253,7 +234,7 @@ id: Please sign below
 question: |
   Please sign below
 fields:
-  - "Users1signature": users1signature
+  - "${ users[0].name.full() }": users[0].signature
     maxlength: 16
 ---
 id: preview Affidavit_of_Indigency
@@ -287,10 +268,6 @@ event: review_Affidavit_of_Indigency
 question: |
   Review your answers
 review:
-  - Edit: user_role1
-    button: |
-      **User role1**:
-      ${ user_role1 }
   - Edit: case_num
     button: |
       **Case num**:
@@ -299,14 +276,6 @@ review:
     button: |
       **Defendant mashpee**:
       ${ defendant_mashpee }
-  - Edit: user_role2
-    button: |
-      **User role2**:
-      ${ user_role2 }
-  - Edit: users1addressaddress
-    button: |
-      **Users1addressaddress**:
-      ${ users1addressaddress }
   - Edit: mailing_address
     button: |
       **Mailing address**:
@@ -359,10 +328,6 @@ review:
     button: |
       **Date of signature**:
       ${ signature_date }
-  - Edit: users1signature
-    button: |
-      **Users1signature**:
-      ${ users1signature }
 ---
 # ALDocument objects specify the metadata for each template
 objects:
@@ -391,11 +356,11 @@ attachment:
   skip undefined: True
   pdf template file: Affidavit_of_Indigency.pdf
   fields:
-      - "user_role1": ${ user_role1 }
+      - "user_role1": ${ users[0].name.full() }
       - "case_num": ${ case_num }
       - "defendant_mashpee": ${ defendant_mashpee }
-      - "user_role2": ${ user_role2 }
-      - "users1.address.address": ${ users1addressaddress }
+      - "user_role2": ${ defendants[0].name.full() }
+      - "users1.address.address": ${ users[0].address.on_one_line() }
       - "mailing_address": ${ mailing_address }
       - "public_assistance": ${ public_assistance }
       - "tafdc__box": ${ tafdc__box }
@@ -408,7 +373,7 @@ attachment:
       - "number_in_household": ${ "{:,.2f}".format(number_in_household) }
       - "other_income": ${ other_income }
       - "acknowledge_receipt_box": ${ acknowledge_receipt_box }
-      - "signature_date": ${ signature_date }
-      - "users1.signature": ${ users1signature }
+      - "signature_date": ${ users[0].signature }
+      - "users1.signature": ${ users[0].signature }
 
 
