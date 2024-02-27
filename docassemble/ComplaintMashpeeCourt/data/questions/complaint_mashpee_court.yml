@@ -143,19 +143,17 @@ subquestion: |
 
   This form can help you file a civil {complaint}. It can also help you file {Fee Waiver}, a form that makes the complaint form free to file in Mashpee Wampanoag Tribal Court.
 
-  This 
-  Step 1. Answer a few basic questions about yourself and the case. The answers will be used to automatically fill in the correct form(s).<br>
+  Step 1. The next few pages will help you decide if you want to file both a {Fee Waiver} and a {complaint} or whether you would liek to only file a complaint.<br>
   
-  Step 2. Preview the completed form to make sure your answers look correct. Be sure to change your answers if needed. <br>
+  Step 2. Then, based on your choices, you will be asked to answer about 10-15 questions about your case. <br>
   
-  % if form_approved_for_email_filing:
-  Step 3. Email the form to the court using this secure website and save copies
-  for yourself. Attach any extra forms when you are applying for the Fee Waiver.  
-  % elif al_form_type in ['starts_case','existing_case','appeal']:
-  Step 3. Download and save a copy of the final form. You will have to serve the opposing party in your case.
-  % else:
-  Step 3. Download and print the final form. You must serve the other parties in your case.
-  % endif
+
+  Step 3. If you file both a fee waiver and a complaint, email the form to the court using this link at the end of the form. Be sure to attach any extra forms when you are applying for the Fee Waiver.  
+
+  Step 4. Finally, the form will show you your completed form and tell you what to do next. Even though the form is filled out, you will still have to submit it to the court through email or in-person. 
+  
+  Remember: You must serve the defendant(s) in your case. This form only assists in completing the required court documents.
+
   
   This site is not a lawyer. If you would like a lawyer, find [your local
   legal aid provider](https://www.lsc.gov/what-legal-aid/find-legal-aid).
@@ -320,6 +318,8 @@ subquestion: |
 fields:
   - File: the_doc
     datatype: file
+    required: False
+    note: If you do not upload a document now, you will be asked to submit the documents to the court in person, with your form.
 ---
 id: Case Description
 question: |

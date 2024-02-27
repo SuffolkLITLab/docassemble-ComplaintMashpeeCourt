@@ -65,7 +65,6 @@ code: |
   number_in_household
   set_progress(48)
   other_income
-  acknowledge_receipt_box
   users[0].signature = True
   set_progress(64)
   signature_date
