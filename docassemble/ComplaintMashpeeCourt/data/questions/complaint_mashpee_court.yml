@@ -87,7 +87,7 @@ code: |
     defendants.there_are_any = True
   defendants.gather()
   does_confirm_understanding
-  users[0].signature = True
+  users[0].signature #= True
   #signature_date
   #basic_questions_signature_flow
   interview_order_complaint_mashpee_court = True
@@ -141,14 +141,16 @@ question: |
   File a Civil Complaint and Fee Waiver in Mashpee Wampanoag Court
 subquestion: |
 
-  This form can help you file a civil {complaint}. It can also help you file {Fee Waiver}, a form that makes the complaint form free to file in Mashpee Wampanoag Tribal Court.
+  This form can help you file a civil {complaint}. It can also help you file {Fee Waiver}, a form that makes the complaint form free to file in Mashpee Wampanoag Tribal Court.<br>
 
-  Step 1. The next few pages will help you decide if you want to file both a {Fee Waiver} and a {complaint} or whether you would liek to only file a complaint.<br>
+  Tap the {green words} in any screen for a definition or more information.<br>
+
+  Step 1. The next few pages will help you decide if you want to file both a {Fee Waiver} and a {complaint} or just the complaint.<br>
   
-  Step 2. Then, based on your choices, you will be asked to answer about 10-15 questions about your case. <br>
+  Step 2. Then, based on your choices, you will be asked to answer about 10-15 questions about your case. This should take about 15-30 minutes. <br>
   
 
-  Step 3. If you file both a fee waiver and a complaint, email the form to the court using this link at the end of the form. Be sure to attach any extra forms when you are applying for the Fee Waiver.  
+  Step 3. If you file both a fee waiver and a complaint, you can email the completed court forms at the end of this interview. There will be instructions helping you with next steps at the endf of the interview. You will be asked to attach necessary financial forms to verify your income.  
 
   Step 4. Finally, the form will show you your completed form and tell you what to do next. Even though the form is filled out, you will still have to submit it to the court through email or in-person. 
   
@@ -158,12 +160,7 @@ subquestion: |
   This site is not a lawyer. If you would like a lawyer, find [your local
   legal aid provider](https://www.lsc.gov/what-legal-aid/find-legal-aid).
   
-  Tap the {green words} in any screen for a definition or more information.
   
-  % if chat_partners_available().help:
-  Live help is currently available in this interview. Click the speech bubble
-  (:comment-alt:) in the navigation bar to connect to a live advocate for help.
-  % endif
 fields:
   - note: |
       ${ display_template(al_terms_of_use, scrollable=True) }

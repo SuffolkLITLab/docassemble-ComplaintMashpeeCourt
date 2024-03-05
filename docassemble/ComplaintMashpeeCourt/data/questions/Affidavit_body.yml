@@ -65,7 +65,7 @@ code: |
   number_in_household
   set_progress(48)
   other_income
-  users[0].signature = True
+  users[0].signature #= True
   set_progress(64)
   signature_date
   interview_order_Affidavit_of_Indigency = True
@@ -248,9 +248,9 @@ subquestion: |
   
   Remember to come back to this window to continue and sign your form.
 continue button field: Affidavit_of_Indigency_preview_question    
----
-code: |
-  signature_fields = []
+#---
+#code: |
+  #signature_fields = []
 ---
 code: |
   # This is a placeholder for the addresses that will be searched
