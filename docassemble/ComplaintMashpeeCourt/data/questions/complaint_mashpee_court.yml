@@ -378,6 +378,19 @@ fields:
   - code: |
       users[0].name_fields()
 ---
+id: any other users
+question: |
+  % if al_form_type in ['starts_case','existing_case','appeal']:
+  Are there other Defendants in this case? 
+  % else:
+  Is anyone else adding their name to this form with you?
+  % endif
+subquestion: |  
+  Other defendants are people also filing the case with you and are on your side of the case. 
+fields:
+  - no label: users.there_is_another
+    datatype: yesnoradio
+---
 id: Confirmation of Understanding
 question: |
   Confirm you understand
