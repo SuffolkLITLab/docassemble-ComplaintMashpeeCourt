@@ -73,11 +73,11 @@ code: |
   users[0].phone_number
   enrollment_number
   summary_of_case
-  
+ 
+  set_progress(40)
+ 
   law_violation
   relief_description
-  
-  set_progress(40)
  
   set_progress(80)
   if is_against_mashpee: 
@@ -87,7 +87,7 @@ code: |
     defendants.there_are_any = True
   defendants.gather()
   does_confirm_understanding
-  users[0].signature #= True
+  users[0].signature 
   #signature_date
   #basic_questions_signature_flow
   interview_order_complaint_mashpee_court = True
@@ -381,15 +381,26 @@ fields:
 id: any other users
 question: |
   % if al_form_type in ['starts_case','existing_case','appeal']:
-  Are there other Defendants in this case? 
+  Is there another {plaintiff} on your side of the case?  
   % else:
-  Is anyone else adding their name to this form with you?
+  Is anyone else adding their name to this complaint with you?
   % endif
 subquestion: |  
-  Other defendants are people also filing the case with you and are on your side of the case. 
+  Other plaintiff's are people also filing the case with you and are on your side of the case. The person you are filing this complaint against will be the {defendant}. 
 fields:
   - no label: users.there_is_another
-    datatype: yesnoradio 
+    datatype: yesnoradio
+---
+id: is there an opposing party?
+question: |
+  Are you filing this complaint against a person or an organization?
+subquestion: |
+  
+  If you are suing the Mashpee Wampanoag Tribe, answer no to this question. A question will be asked later if you are suing the Mashpee Wampanoag Tribe.
+  
+fields:
+  - no label: other_parties.there_are_any
+    datatype: yesnoradio
 ---
 id: Confirmation of Understanding
 question: |
