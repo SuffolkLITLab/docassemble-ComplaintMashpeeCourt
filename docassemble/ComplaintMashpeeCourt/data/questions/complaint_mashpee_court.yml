@@ -389,7 +389,7 @@ subquestion: |
   Other defendants are people also filing the case with you and are on your side of the case. 
 fields:
   - no label: users.there_is_another
-    datatype: yesnoradio
+    datatype: yesnoradio 
 ---
 id: Confirmation of Understanding
 question: |
@@ -453,10 +453,6 @@ review:
     button: |
       **Case description**:
       ${ summary_of_case }
-  - Edit: docket_number
-    button: |
-      **docket_number**:
-      ${ docket_number }
   - Edit: users.revisit
     button: |
       **Users**
