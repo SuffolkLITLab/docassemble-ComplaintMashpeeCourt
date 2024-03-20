@@ -56,7 +56,10 @@ code: |
   
   users[0].address.block()
   mailing_address
-  public_assistance
+  if public_assistance:
+    needs_public_aid
+  else:
+    personal_take_home_pay_box
   set_progress(32)
   tafdc__box
   personal_take_home_pay_box
@@ -148,20 +151,21 @@ fields:
 
 continue button field: mailing_address
 ---
-id: Do you receive public assistance
+id: Do you receive public aid
 question: |
   Do you receive public assistance?
 field: public_assistance
 buttons:
-- "Yes"
-- "No" 
+- Yes: True
+- No: False
 ---
-id: If yes, please check all that apply to you
+id: needs public aid
+field: needs_public_aid 
 question: |
   Do you recieve public aid?
 subquestion: |
   If you do not recieve public aid, please click next.
-fields:
+fields: 
   - "Transitional Aid to Families with Dependent Children": tafdc__box
     datatype: yesno
   - "Emergency Aid to Elderly, Disabled or Children": eaedc_box
