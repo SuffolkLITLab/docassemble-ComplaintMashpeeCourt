@@ -59,10 +59,8 @@ code: |
   if public_assistance:
     needs_public_aid
   else:
-    personal_take_home_pay_box
+    pay_per_year
   set_progress(32)
-  tafdc__box
-  personal_take_home_pay_box
   pay_per_year
   number_in_household
   set_progress(48)
@@ -179,11 +177,10 @@ fields:
 ---
 id:  personal_take_home_pay_box
 question: |
-  If you do not recieve any public asssistance, can you provide your personal take home pay.
-yesno: personal_take_home_pay_box
-    
+  You will now be asked to report how much money you make per year. Look at your tax forms or other financial documents to answer the next question.
+continue button field: pay_per_year
 ---
-id:
+id: pay_per_year
 question: |
   What is your personal take home pay?
 subquestion: |
@@ -290,10 +287,6 @@ review:
     button: |
       **Mvpb box**:
       ${ word(yesno(mvpb_box)) }
-  - Edit: personal_take_home_pay_box
-    button: |
-      **Personal take home pay box**:
-      ${ word(yesno(personal_take_home_pay_box)) }
   - Edit: pay_per_year
     button: |
       **Pay per year**:
@@ -353,7 +346,6 @@ attachment:
       - "SSI_box": ${ SSI_box }
       - "mass_health": ${ mass_health }
       - "mvpb_box": ${ mvpb_box }
-      - "personal_take_home_pay_box": ${ personal_take_home_pay_box }
       - "pay_per_year": ${ currency(pay_per_year) }
       - "number_in_household": ${ "{:,.2f}".format(number_in_household) }
       - "other_income": ${ other_income }
