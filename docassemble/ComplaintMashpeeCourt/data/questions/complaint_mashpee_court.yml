@@ -70,6 +70,12 @@ code: |
   users.gather()
   users[0].address.address
   set_parts(subtitle=str(users))
+  if is_against_mashpee: 
+    mashpee_department
+    defendants.there_are_any = False
+  else: 
+    defendants.there_are_any = True
+  defendants.gather()
   users[0].phone_number
   enrollment_number
   summary_of_case
@@ -80,12 +86,6 @@ code: |
   relief_description
  
   set_progress(80)
-  if is_against_mashpee: 
-    mashpee_department
-    defendants.there_are_any = False
-  else: 
-    defendants.there_are_any = True
-  defendants.gather()
   does_confirm_understanding
   users[0].signature 
   #signature_date
