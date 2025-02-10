@@ -1,6 +1,7 @@
 ---
 include:
   - docassemble.AssemblyLine:al_package.yml
+  - Affidavit_of_Indigency.yml
   - Affidavit_body.yml
 ---
 metadata:
@@ -68,29 +69,64 @@ code: |
   allowed_courts = interview_metadata["complaint_mashpee_court"]["allowed courts"]
   nav.set_section('review_complaint_mashpee_court')
   user_role = 'plaintiff'
+  set_progress(7)
+  
   users.gather()
+  set_progress(14)
+  
   users[0].address.address
+  set_progress(21)
+  
   set_parts(subtitle=str(users))
+  set_progress(28)
+  
   users[0].phone_number
+  set_progress(35)
+  
   enrollment_number
+  set_progress(42)
+  
   summary_of_case
+  set_progress(49)
   
   law_violation
+  set_progress(56)
+
   relief_description
-  
-  set_progress(40)
- 
-  set_progress(80)
+  set_progress(63)
+
   if is_against_mashpee: 
     mashpee_department
     defendants.there_are_any = False
   else: 
     defendants.there_are_any = True
   defendants.gather()
+  set_progress(70)
+
   does_confirm_understanding
-  #signature_date
-  #basic_questions_signature_flow
+  set_progress(77)
+
+  get_income
+  get_household_size
+  set_progress(84)
+
+  if (get_household_size == 1 and get_income < 18001) or \
+     (get_household_size == 2 and get_income < 22001) or \
+     (get_household_size == 3 and get_income < 27001) or \
+     (get_household_size == 4 and get_income < 31001) or \
+     (get_household_size == 5 and get_income < 36001) or \
+     (get_household_size == 6 and get_income < 40001) or \
+     (get_household_size == 7 and get_income < 44001) or \
+     (get_household_size == 8 and get_income < 49001) or \
+     (get_household_size == 9 and get_income < 53351) or \
+     (get_household_size == 10 and get_income < 57701):
+    Affidavit_of_Indigency_intro
+    interview_order_Affidavit_of_Indigency
+  set_progress(91)
+
   interview_order_complaint_mashpee_court = True
+  set_progress(100)
+
 ---
 ###################### Main order ######################
 comment: |
@@ -100,9 +136,8 @@ mandatory: True
 code: |
   al_intro_screen
   complaint_mashpee_court_intro
-  Do_I_need_this_form
-  Affidavit_of_Indigency_intro
   interview_order_complaint_mashpee_court
+  Do_I_need_this_form
   signature_date
   the_doc
   # Save anonymized interview statistics (customize the saved data below)
@@ -186,7 +221,7 @@ continue button field: complaint_mashpee_court_intro
 question: |
   Mashpee Wampanoag Tribal Court - Filing a Civil Complaint and Fee Waiver
 subquestion: |
-  These are the instructions for a plaintiff filling out a {Complaint} at the Mashpee Wampanoag Tribal Court. To complete this form, you MUST be eligible and submit a {fee waiver}.  
+  These are the instructions for a plaintiff filling out a {Complaint} at the Mashpee Wampanoag Tribal Court. To complete this form, you MUST be eligible and submit a {fee waiver}.
   
   Answer each question as fully as possible. Some questions will ask you to describe certain events. Be as specific as possible. 
   
@@ -251,7 +286,7 @@ fields:
   - "Law violation": law_violation
     input type: area
 ---
-id: Affidavit_of_Indigency_AND_Request_of_Waiver_of_Fees__Cost
+id: Affidavit_of_Indigency_AND_Request_of_Waiver_of_Fees_Cost
 continue button field: Affidavit_of_Indigency_intro
 question: |
   Waiver of Court Fees Eligibility Guidelines. 
@@ -376,6 +411,17 @@ fields:
       minlength: |
         You cannot continue unless you swear and agree to understanding the certification above.
 ---
+id: Fee Waiver Qualification
+question:
+  Please enter the following information to see if you qualify for a fee waiver. 
+fields:
+  - "Enter your income": get_income
+    datatype: currency
+    maxlength: 16
+  - "How many people live in your home?": get_household_size
+    datatype: number
+    maxlength: 2
+---
 code: |
   # This is a placeholder for the addresses that will be searched
   # for matching address to court. Edit if court venue is based on 
@@ -496,12 +542,25 @@ question: |
 subquestion: |
   Thank you ${users}. Your form is ready to download and deliver.
   
-  View, download and send your form below. Click the "Edit answers" button to fix any mistakes.
-
-  ${ action_button_html(url_action('review_Affidavit_of_Indigency'), label='Edit answers for fee waiver', color='info') }
+  % if (get_household_size == 1 and get_income < 18001) or \
+     (get_household_size == 2 and get_income < 22001) or \
+     (get_household_size == 3 and get_income < 27001) or \
+     (get_household_size == 4 and get_income < 31001) or \
+     (get_household_size == 5 and get_income < 36001) or \
+     (get_household_size == 6 and get_income < 40001) or \
+     (get_household_size == 7 and get_income < 44001) or \
+     (get_household_size == 8 and get_income < 49001) or \
+     (get_household_size == 9 and get_income < 53351) or \
+     (get_household_size == 10 and get_income < 57701):
+  View, download and send your form below. You may send the form directly to the Court, or you may send the form to yourself. Click the "Edit answers" button to fix any mistakes.
   ${ action_button_html(url_action('review_complaint_mashpee_court'), label='Edit answers for complaint', color='info') }
-
+  ${ action_button_html(url_action('review_Affidavit_of_Indigency'), label='Edit answers for fee waiver', color='info') }
+  ${ al_user_aff_bundle.download_list_html() }
+  % else:
+  View and download your form below. You may also send your form to yourself with the email option. Click the "Edit answers" button to fix any mistakes.
+  ${ action_button_html(url_action('review_complaint_mashpee_court'), label='Edit answers for complaint', color='info') }
   ${ al_user_bundle.download_list_html() }
+  %endif
 
   ${ al_user_bundle.send_button_html(show_editable_checkbox=True) }
 
@@ -509,10 +568,14 @@ progress: 100
 ---
 objects:
   - complaint_mashpee_court_post_interview_instructions: ALDocument.using(title="Instructions", filename="complaint_mashpee_court_next_steps.docx", enabled=True, has_addendum=False, default_overflow_message=AL_DEFAULT_OVERFLOW_MESSAGE)
+  - complaint_and_affidavit_mashpee_court_post_interview_instructions: ALDocument.using(title="Complaint and Affidavit Instructions", filename="complaint_and_affidavit_mashpee_court_next_steps.docx", enabled=True, has_addendum=False, default_overflow_message=AL_DEFAULT_OVERFLOW_MESSAGE)
   - complaint_mashpee_court_attachment: ALDocument.using(title="Complaint Mashpee Wampanoag Tribal Court", filename="Complaint_-_Mashpee_Wampanoag_Tribal_Court.docx", enabled=True, has_addendum=False, default_overflow_message=AL_DEFAULT_OVERFLOW_MESSAGE)
+  - Affidavit_of_Indigency: ALDocument.using(title="Affidavit of Indigency", filename="Affidavit_of_Indigency.pdf", enabled=True, has_addendum=False, default_overflow_message=AL_DEFAULT_OVERFLOW_MESSAGE)
+  - Affidavit_of_Indigency_next_steps: ALDocument.using(title="Affidavit of Indigency Post Interview Instructions", filename="Affidavit_of_Indigency_next_steps.docx", enabled=True, has_addendum=False,default_overflow_message=AL_DEFAULT_OVERFLOW_MESSAGE)
 ---
 objects:
   - al_user_bundle: ALDocumentBundle.using(elements=[complaint_mashpee_court_post_interview_instructions,complaint_mashpee_court_attachment], filename="complaint_mashpee_court.docx_package.pdf", title="All forms to download for your records", enabled=True)
+  - al_user_aff_bundle: ALDocumentBundle.using(elements=[complaint_and_affidavit_mashpee_court_post_interview_instructions,complaint_mashpee_court_attachment,Affidavit_of_Indigency,Affidavit_of_Indigency_next_steps],filename="affidavit_mashpee_court.docx_package.pdf", title="All Affidavit forms to download for your records",enabled=True)
   - al_court_bundle: ALDocumentBundle.using(elements=[complaint_mashpee_court_attachment], filename="complaint_mashpee_court.docx_package.pdf", title="All forms to download for your records", enabled=True)
 ---
 attachments:
@@ -521,10 +584,45 @@ attachments:
     variable name: complaint_mashpee_court_post_interview_instructions[i]        
     skip undefined: True
     docx template file: complaint_mashpee_court_next_steps.docx
-  - name: complaint mashpee court attachment
+  - name: complaint and affidavit mashpee court post interview instructions
+    filename: Post-interview-instructions-combined     
+    variable name: complaint_and_affidavit_mashpee_court_post_interview_instructions[i]        
+    skip undefined: True
+    docx template file: complaint_and_affidavit_mashpee_court_next_steps.docx
+  - name: complaint and affidavit mashpee court attachment
     filename: complaint_mashpee_court.docx     
     variable name: complaint_mashpee_court_attachment[i]        
     skip undefined: True
     docx template file: Complaint_-_Mashpee_Wampanoag_Tribal_Court.docx
+  - name: Affidavit of Indigency
+    filename: Affidavit_of_Indigency.pdf
+    variable name: Affidavit_of_Indigency[i]
+    skip undefined: True
+    pdf template file: Affidavit_of_Indigency.pdf
+    fields:
+      - "user_role1": ${ user_role1 }
+      - "case_num": ${ case_num }
+      - "defendant_mashpee": ${ defendant_mashpee }
+      - "user_role2": ${ users[0].name.first }
+      - "users1.address.address": ${ users[0].address.address }
+      - "mailing_address": ${ mailing_address }
+      - "public_assistance": ${ public_assistance }
+      - "tafdc__box": ${ tafdc__box }
+      - "eaedc_box": ${ eaedc_box }
+      - "SSI_box": ${ SSI_box }
+      - "mass_health": ${ mass_health }
+      - "mvpb_box": ${ mvpb_box }
+      - "personal_take_home_pay_box": ${ personal_take_home_pay_box }
+      - "pay_per_year": ${ currency(pay_per_year) }
+      - "number_in_household": ${ "{:,.2f}".format(number_in_household) }
+      - "other_income": ${ other_income }
+      - "acknowledge_receipt_box": ${ acknowledge_receipt_box }
+      - "signature_date": ${ signature_date }
+      - "users1.signature": ${ users1signature }
+  - name: Affidavit of Indigency Post Interview Instructions
+    filename: Affidavit_of_Indigency_next_steps.docx
+    variable name: Affidavit_of_Indigency_next_steps[i]
+    skip undefined: True
+    docx template file: Affidavit_of_Indigency_next_steps.docx
 ---
 
