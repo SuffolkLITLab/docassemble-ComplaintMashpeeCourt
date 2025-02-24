@@ -60,18 +60,6 @@ code: |
      (get_household_size == 9 and get_income < 53351) or \
      (get_household_size == 10 and get_income < 57701):
     qualifies_yes
-  if (get_household_size == 1 and get_income > 18001) or \
-     (get_household_size == 2 and get_income > 22001) or \
-     (get_household_size == 3 and get_income > 27001) or \
-     (get_household_size == 4 and get_income > 31001) or \
-     (get_household_size == 5 and get_income > 36001) or \
-     (get_household_size == 6 and get_income > 40001) or \
-     (get_household_size == 7 and get_income > 44001) or \
-     (get_household_size == 8 and get_income > 49001) or \
-     (get_household_size == 9 and get_income > 53351) or \
-     (get_household_size == 10 and get_income > 57701):  
-    interview_order_Affidavit_of_Indigency = False
-  if (qualifies_yes == "Yes"):
     user_ask_role = "plaintiff"
     Do_I_need_this_form
     users[0].name.name
@@ -88,9 +76,9 @@ code: |
     set_progress(64)
     signature_date
     interview_order_Affidavit_of_Indigency = True
-  if (qualifies_yes == "No"):
+  else:
+    qualifies_no
     interview_order_Affidavit_of_Indigency = False
-
 ---
 ###################### Main order ######################
 comment: |
@@ -161,14 +149,22 @@ fields:
 id: User Qualifies
 question:
   It looks like you qualify for a fee waiver!
-subquestion:
-  Would you like to fill out a fee waiver?
 fields:
-  - "I would like to fill out a fee waiver": qualifies_yes
+  - "You qualify for a fee waiver": qualifies_yes
     input type: radio
     choices:
-      - Yes
-      - No
+      - Fill out fee waiver
+---
+id: user does not qualify
+question:
+  It looks like you do not qualify for a fee waiver.
+subquestion:
+  It looks like you do not qualify for a fee waiver.
+fields:
+  - "You do not qualify for a fee waiver": qualifies_no
+    input type: radio
+    choices:
+      - Ok
 ---
 id: What is your name
 question: |

@@ -134,7 +134,7 @@ code: |
   complaint_mashpee_court_preview_question
   basic_questions_signature_flow 
   users[0].signature
-  if (qualifies_yes == "Yes"):
+  if (qualifies_yes == "Fill out fee waiver"):
     complaint_aff_mashpee_court_download
     user_sends
   else:
@@ -427,10 +427,10 @@ question: |
 subquestion: |
   Here is a preview of the form you will sign on the next page.   
 
-  % if (qualifies_yes == "Yes"):
+  % if (qualifies_yes == "Fill out fee waiver"):
   ${ al_court_bundle.as_pdf(key='preview') }  
   ${ al_court_bundle_2.as_pdf(key='preview') }
-  % else:
+  % else
   ${ al_court_bundle.as_pdf(key='preview') }
   % endif
 
@@ -438,10 +438,10 @@ subquestion: |
   Click the image to open it in a new tab. Click the "Edit answers" button
   to edit your answers.
   
-  % if (qualifies_yes == "Yes"):
+  % if (qualifies_yes == "Fill out fee waiver"):
   ${ action_button_html(url_action('review_complaint_mashpee_court'), label='Edit answers', color='info') }
   ${ action_button_html(url_action('review_Affidavit_of_Indigency'), label='Edit answers for fee waiver', color='info') }
-  % else:
+  % else
   ${ action_button_html(url_action('review_complaint_mashpee_court'), label='Edit answers', color='info') }
   % endif
   
