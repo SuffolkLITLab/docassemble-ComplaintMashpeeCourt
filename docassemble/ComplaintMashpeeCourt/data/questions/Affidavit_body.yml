@@ -48,24 +48,49 @@ code: |
   # Set the allowed courts for this interview
   allowed_courts = interview_metadata["Affidavit_of_Indigency"]["allowed courts"]
   nav.set_section("review_Affidavit_of_Indigency")
-  user_role = "plaintiff"
-  user_ask_role = "plaintiff"
-  Do_I_need_this_form
-  users[0].name.first
-  user_role1
-  defendant_mashpee
-  case_num
-  users[0].address.address
-  set_progress(16)
-  
-  mailing_different
-  public_assistance
-  set_progress(32)
-  acknowledge_receipt_box
-  users1signature
-  set_progress(64)
-  signature_date
-  interview_order_Affidavit_of_Indigency = True
+  get_income
+  if (get_household_size == 1 and get_income < 18001) or \
+     (get_household_size == 2 and get_income < 22001) or \
+     (get_household_size == 3 and get_income < 27001) or \
+     (get_household_size == 4 and get_income < 31001) or \
+     (get_household_size == 5 and get_income < 36001) or \
+     (get_household_size == 6 and get_income < 40001) or \
+     (get_household_size == 7 and get_income < 44001) or \
+     (get_household_size == 8 and get_income < 49001) or \
+     (get_household_size == 9 and get_income < 53351) or \
+     (get_household_size == 10 and get_income < 57701):
+    qualifies_yes
+  if (get_household_size == 1 and get_income > 18001) or \
+     (get_household_size == 2 and get_income > 22001) or \
+     (get_household_size == 3 and get_income > 27001) or \
+     (get_household_size == 4 and get_income > 31001) or \
+     (get_household_size == 5 and get_income > 36001) or \
+     (get_household_size == 6 and get_income > 40001) or \
+     (get_household_size == 7 and get_income > 44001) or \
+     (get_household_size == 8 and get_income > 49001) or \
+     (get_household_size == 9 and get_income > 53351) or \
+     (get_household_size == 10 and get_income > 57701):  
+    interview_order_Affidavit_of_Indigency = False
+  if (qualifies_yes == "Yes"):
+    user_ask_role = "plaintiff"
+    Do_I_need_this_form
+    users[0].name.name
+    user_role1
+    defendant_mashpee
+    case_num
+    users[0].address.address
+    set_progress(16)
+    mailing_different
+    public_assistance
+    set_progress(32)
+    acknowledge_receipt_box
+    users[0].signature
+    set_progress(64)
+    signature_date
+    interview_order_Affidavit_of_Indigency = True
+  if (qualifies_yes == "No"):
+    interview_order_Affidavit_of_Indigency = False
+
 ---
 ###################### Main order ######################
 comment: |
@@ -122,11 +147,34 @@ subquestion: |
   Please see the [Waiver of Court Fees Eligibility Guidelines].
   [Waiver of Court Fees Eligibility Guidelines]: ${ url_of('https://static1.squarespace.com/static/59ca33c0f09ca4a9c58455a9/t/5a3c59a28165f53e1ebd7fb1/1513904547125/WAIVER-OF-COURT-FEES.pdf')}
 ---
+id: Fee Waiver Qualification
+question:
+  Answer the following questions to see if you might qualify for a fee waiver.
+fields:
+  - "Enter your income": get_income
+    datatype: currency
+    maxlength: 16
+  - "How many people live in your home?": get_household_size
+    datatype: number
+    maxlength: 2
+---
+id: User Qualifies
+question:
+  It looks like you qualify for a fee waiver!
+subquestion:
+  Would you like to fill out a fee waiver?
+fields:
+  - "I would like to fill out a fee waiver": qualifies_yes
+    input type: radio
+    choices:
+      - Yes
+      - No
+---
 id: What is your name
 question: |
   If you are the applying for the waiver, please give us your name?
 fields:
-  - "Applicant full name": users[0].name.first
+  - "Applicant full name": users[0].name.name
     maxlength: 48
 ---
 id: If you already have an ongoing case who are the parties?
@@ -209,7 +257,7 @@ fields:
     show if:
       variable: public_assistance
       is: Yes
-  - "Pay per year": pay_per_year
+  - "Pay per year": get_income
     maxlength: 16
     datatype: currency
     show if:
@@ -222,7 +270,7 @@ fields:
     show if:
       variable: personal_take_home_pay_box
       is: Yes
-  - "How many people live in your household?": number_in_household
+  - "How many people live in your household?": get_household_size
     datatype: number
     show if:
       variable: personal_take_home_pay_box
@@ -241,9 +289,9 @@ fields:
 id: Please sign below
 question: |
   Please sign below. This signature will appear at the end of you Affidavit.
-signature: users1signature
+signature: users[0].signature
 under:
-  ${users[0].name.first}
+  ${users[0].name.name}
 ---
 id: preview Affidavit_of_Indigency
 question: |
@@ -288,7 +336,7 @@ review:
   - Edit: user_role2
     button: |
       **User role2**:
-      ${ users[0].name.first }
+      ${ users[0].name.name }
   - Edit: users[0].address.address
     button: |
       **Users[0].address.address**:
@@ -325,14 +373,14 @@ review:
     button: |
       **Personal take home pay box**:
       ${ word(yesno(personal_take_home_pay_box)) }
-  - Edit: pay_per_year
+  - Edit: get_income
     button: |
       **Pay per year**:
-      ${ currency(pay_per_year) }
-  - Edit: number_in_household
+      ${ currency(get_income) }
+  - Edit: get_household_size
     button: |
       **Number in household**:
-      ${ number_in_household }
+      ${ get_household_size }
   - Edit: other_income
     button: |
       **Other income**:
@@ -345,10 +393,10 @@ review:
     button: |
       **Date of signature**:
       ${ signature_date }
-  - Edit: users1signature
+  - Edit: users[0].signature
     button: |
       **Users1signature**:
-      ${ users1signature }
+      ${ users[0].signature }
 ---
 # ALDocument objects specify the metadata for each template
 objects:
@@ -395,6 +443,6 @@ attachment:
       - "other_income": ${ other_income }
       - "acknowledge_receipt_box": ${ acknowledge_receipt_box }
       - "signature_date": ${ signature_date }
-      - "users1.signature": ${ users1signature }
+      - "users[0].signature": ${ users[0].signature }
 
 

@@ -106,22 +106,11 @@ code: |
   does_confirm_understanding
   set_progress(77)
 
+  Affidavit_of_Indigency_intro
   get_income
-  get_household_size
   set_progress(84)
 
-  if (get_household_size == 1 and get_income < 18001) or \
-     (get_household_size == 2 and get_income < 22001) or \
-     (get_household_size == 3 and get_income < 27001) or \
-     (get_household_size == 4 and get_income < 31001) or \
-     (get_household_size == 5 and get_income < 36001) or \
-     (get_household_size == 6 and get_income < 40001) or \
-     (get_household_size == 7 and get_income < 44001) or \
-     (get_household_size == 8 and get_income < 49001) or \
-     (get_household_size == 9 and get_income < 53351) or \
-     (get_household_size == 10 and get_income < 57701):
-    Affidavit_of_Indigency_intro
-    interview_order_Affidavit_of_Indigency
+  interview_order_Affidavit_of_Indigency
   set_progress(91)
 
   interview_order_complaint_mashpee_court = True
@@ -143,9 +132,13 @@ code: |
   # Save anonymized interview statistics (customize the saved data below)
   store_variables_snapshot(data={'zip': users[0].address.zip})
   complaint_mashpee_court_preview_question
-  basic_questions_signature_flow
+  basic_questions_signature_flow 
   users[0].signature
-  complaint_mashpee_court_download
+  if (qualifies_yes == "Yes"):
+    complaint_aff_mashpee_court_download
+    user_sends
+  else:
+    complaint_mashpee_court_download
 ---
 terms:
   jurisdiction: |
@@ -413,7 +406,7 @@ fields:
 ---
 id: Fee Waiver Qualification
 question:
-  Please enter the following information to see if you qualify for a fee waiver. 
+  Answer the following questions to see if you might qualify for a fee waiver.
 fields:
   - "Enter your income": get_income
     datatype: currency
@@ -433,13 +426,24 @@ question: |
   Preview your form before you sign it
 subquestion: |
   Here is a preview of the form you will sign on the next page.   
-  
+
+  % if (qualifies_yes == "Yes"):
+  ${ al_court_bundle.as_pdf(key='preview') }  
+  ${ al_court_bundle_2.as_pdf(key='preview') }
+  % else:
   ${ al_court_bundle.as_pdf(key='preview') }
+  % endif
+
 
   Click the image to open it in a new tab. Click the "Edit answers" button
   to edit your answers.
-
+  
+  % if (qualifies_yes == "Yes"):
   ${ action_button_html(url_action('review_complaint_mashpee_court'), label='Edit answers', color='info') }
+  ${ action_button_html(url_action('review_Affidavit_of_Indigency'), label='Edit answers for fee waiver', color='info') }
+  % else:
+  ${ action_button_html(url_action('review_complaint_mashpee_court'), label='Edit answers', color='info') }
+  % endif
   
   Remember to come back to this window to continue and sign your form.
 continue button field: complaint_mashpee_court_preview_question    
@@ -533,7 +537,31 @@ columns:
       row_item.name.full() if defined("row_item.name.first") else ""
 edit:
   - name.first
-confirm: True
+confirm: True   
+---
+id: download complaint and affidavit
+event: complaint_aff_mashpee_court_download
+question:
+  Almost done
+subquestion:
+  Thank you ${users}. Your form is ready to download and deliver. 
+  
+  If you wish to email your forms to the Tribal Court, simply click the "Send to Court" button below and then the continue button, which will take you to a page where you can send your forms to the Court. Please note that you cannot return to here from that page.
+  
+  View, download and send your form below. You may send the form directly to the Court, or you may send the form to yourself. Click the "Edit answers" button to fix any mistakes.
+  ${ action_button_html(url_action('review_complaint_mashpee_court'), label='Edit answers for complaint', color='info') }
+  ${ action_button_html(url_action('review_Affidavit_of_Indigency'), label='Edit answers for fee waiver', color='info') }
+  ${ al_user_aff_bundle.download_list_html() }
+
+  ${ al_user_bundle.send_button_html(show_editable_checkbox=True) }
+---
+id: send to the court
+event: user_sends
+question:
+  If you wish to send your forms directly to the Tribal Court click the "Send" button below.
+
+  ${al_court_aff_bundle.send_button_to_html("michael.bergin@su.suffolk.edu") }
+prevent going back: True
 ---
 id: download complaint_mashpee_court
 event: complaint_mashpee_court_download
@@ -541,30 +569,12 @@ question: |
   All done
 subquestion: |
   Thank you ${users}. Your form is ready to download and deliver.
-  
-  % if (get_household_size == 1 and get_income < 18001) or \
-     (get_household_size == 2 and get_income < 22001) or \
-     (get_household_size == 3 and get_income < 27001) or \
-     (get_household_size == 4 and get_income < 31001) or \
-     (get_household_size == 5 and get_income < 36001) or \
-     (get_household_size == 6 and get_income < 40001) or \
-     (get_household_size == 7 and get_income < 44001) or \
-     (get_household_size == 8 and get_income < 49001) or \
-     (get_household_size == 9 and get_income < 53351) or \
-     (get_household_size == 10 and get_income < 57701):
-  View, download and send your form below. You may send the form directly to the Court, or you may send the form to yourself. Click the "Edit answers" button to fix any mistakes.
-  ${ action_button_html(url_action('review_complaint_mashpee_court'), label='Edit answers for complaint', color='info') }
-  ${ action_button_html(url_action('review_Affidavit_of_Indigency'), label='Edit answers for fee waiver', color='info') }
-  ${ al_user_aff_bundle.download_list_html() }
-  % else:
+
   View and download your form below. You may also send your form to yourself with the email option. Click the "Edit answers" button to fix any mistakes.
   ${ action_button_html(url_action('review_complaint_mashpee_court'), label='Edit answers for complaint', color='info') }
   ${ al_user_bundle.download_list_html() }
-  %endif
 
   ${ al_user_bundle.send_button_html(show_editable_checkbox=True) }
-
-progress: 100
 ---
 objects:
   - complaint_mashpee_court_post_interview_instructions: ALDocument.using(title="Instructions", filename="complaint_mashpee_court_next_steps.docx", enabled=True, has_addendum=False, default_overflow_message=AL_DEFAULT_OVERFLOW_MESSAGE)
@@ -577,6 +587,8 @@ objects:
   - al_user_bundle: ALDocumentBundle.using(elements=[complaint_mashpee_court_post_interview_instructions,complaint_mashpee_court_attachment], filename="complaint_mashpee_court.docx_package.pdf", title="All forms to download for your records", enabled=True)
   - al_user_aff_bundle: ALDocumentBundle.using(elements=[complaint_and_affidavit_mashpee_court_post_interview_instructions,complaint_mashpee_court_attachment,Affidavit_of_Indigency,Affidavit_of_Indigency_next_steps],filename="affidavit_mashpee_court.docx_package.pdf", title="All Affidavit forms to download for your records",enabled=True)
   - al_court_bundle: ALDocumentBundle.using(elements=[complaint_mashpee_court_attachment], filename="complaint_mashpee_court.docx_package.pdf", title="All forms to download for your records", enabled=True)
+  - al_court_aff_bundle: ALDocumentBundle.using(elements=[complaint_mashpee_court_attachment,Affidavit_of_Indigency],filename="Complaint_and_Affidavit_Court_Bundle.pdf_package.pdf", title="All forms to send to the Mashpee Wampanoag Tribal District Court", enabled=True)
+  - al_court_bundle_2: ALDocumentBundle.using(elements=[Affidavit_of_Indigency], filename="Affidavit_of_Indigency.pdf_package.pdf", title="All forms to download for your records", enabled=True)
 ---
 attachments:
   - name: complaint mashpee court post interview instructions
@@ -613,12 +625,12 @@ attachments:
       - "mass_health": ${ mass_health }
       - "mvpb_box": ${ mvpb_box }
       - "personal_take_home_pay_box": ${ personal_take_home_pay_box }
-      - "pay_per_year": ${ currency(pay_per_year) }
-      - "number_in_household": ${ "{:,.2f}".format(number_in_household) }
+      - "get_income": ${ currency(get_income) }
+      - "get_household_size": ${ "{:,.2f}".format(get_household_size) }
       - "other_income": ${ other_income }
       - "acknowledge_receipt_box": ${ acknowledge_receipt_box }
       - "signature_date": ${ signature_date }
-      - "users1.signature": ${ users1signature }
+      - "users[0].signature": ${ users[0].signature }
   - name: Affidavit of Indigency Post Interview Instructions
     filename: Affidavit_of_Indigency_next_steps.docx
     variable name: Affidavit_of_Indigency_next_steps[i]
