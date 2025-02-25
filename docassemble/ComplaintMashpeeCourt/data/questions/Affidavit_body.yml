@@ -59,7 +59,7 @@ code: |
      (get_household_size == 8 and get_income < 49001) or \
      (get_household_size == 9 and get_income < 53351) or \
      (get_household_size == 10 and get_income < 57701):
-    qualifies_yes
+    user_qualifies = "user_q"
     user_ask_role = "plaintiff"
     Do_I_need_this_form
     users[0].name.name
@@ -70,14 +70,24 @@ code: |
     set_progress(16)
     mailing_different
     public_assistance
+    if (public_assistance == "No"):
+      personal_take_home_pay_box = True
     set_progress(32)
     acknowledge_receipt_box
-    users[0].signature
-    set_progress(64)
     signature_date
+    set_progress(64)
     interview_order_Affidavit_of_Indigency = True
-  else:
-    qualifies_no
+  if (get_household_size == 1 and get_income > 18001) or \
+     (get_household_size == 2 and get_income > 22001) or \
+     (get_household_size == 3 and get_income > 27001) or \
+     (get_household_size == 4 and get_income > 31001) or \
+     (get_household_size == 5 and get_income > 36001) or \
+     (get_household_size == 6 and get_income > 40001) or \
+     (get_household_size == 7 and get_income > 44001) or \
+     (get_household_size == 8 and get_income > 49001) or \
+     (get_household_size == 9 and get_income > 53351) or \
+     (get_household_size == 10 and get_income > 57701):
+    user_qualifies = "user_nq"
     interview_order_Affidavit_of_Indigency = False
 ---
 ###################### Main order ######################
@@ -146,26 +156,6 @@ fields:
     datatype: number
     maxlength: 2
 ---
-id: User Qualifies
-question:
-  It looks like you qualify for a fee waiver!
-fields:
-  - "You qualify for a fee waiver": qualifies_yes
-    input type: radio
-    choices:
-      - Fill out fee waiver
----
-id: user does not qualify
-question:
-  It looks like you do not qualify for a fee waiver.
-subquestion:
-  It looks like you do not qualify for a fee waiver.
-fields:
-  - "You do not qualify for a fee waiver": qualifies_no
-    input type: radio
-    choices:
-      - Ok
----
 id: What is your name
 question: |
   If you are the applying for the waiver, please give us your name?
@@ -217,13 +207,6 @@ fields:
     choices:
       - Yes
       - No
-  - "I can provide my personal take home pay": personal_take_home_pay_box
-    input type: radio
-    choices:
-      - Yes
-    show if: 
-      variable: public_assistance
-      is: No
   - "note": Please check all that apply to you.
     show if:
       variable: public_assistance
@@ -257,20 +240,20 @@ fields:
     maxlength: 16
     datatype: currency
     show if:
-      variable: personal_take_home_pay_box
-      is: Yes
+      variable: public_assistance
+      is: No
   - "Is there any other income from your household?": other_income
     note: Please include other forms of income, for example, rent from boarders, passive income, etc...
     datatype: currency
     maxlength: 16
     show if:
-      variable: personal_take_home_pay_box
-      is: Yes
+      variable: public_assistance
+      is: No
   - "How many people live in your household?": get_household_size
     datatype: number
     show if:
-      variable: personal_take_home_pay_box
-      is: Yes
+      variable: public_assistance
+      is: No
 ---
 id: Acknowledge Receipt
 question: |
