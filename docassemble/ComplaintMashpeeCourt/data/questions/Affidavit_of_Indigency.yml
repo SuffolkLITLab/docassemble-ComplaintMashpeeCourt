@@ -1,0 +1,105 @@
+---
+include:
+  - docassemble.AssemblyLine:assembly_line.yml
+  - Affidavit_body.yml
+---
+metadata:
+  title: |
+    Affidavit of Indigency: Request of Waiver of Fees & Cost
+  short title: |
+    Affidavit of Indigency: Request of Waiver of Fees & Cost
+  tags:
+    - Other
+  authors:
+    - Kajol Raju
+    - Christopher Emrich
+    - Michael Bergin
+---
+mandatory: true
+comment: |
+  Global interview metadata
+variable name: interview_metadata["Affidavit_of_Indigency"]
+data:
+  al_weaver_version: "1.8.0"
+  generated on: "2023-02-13"
+  title: >-
+    Affidavit of Indigency: Request of Waiver of Fees & Cost
+  short title: >-
+    Affidavit of Indigency: Request of Waiver of Fees & Cost
+  description: |-
+    This form is for tribal members who cannot pay for court fees or costs, you may be able to have the state pay for them. Fill out this form in order to determine if you are able to waive your court fees.
+  original_form: >-
+    https://static1.squarespace.com/static/59ca33c0f09ca4a9c58455a9/t/5a3c59c59140b7cd5733f761/1513904581788/AFFIDAVIT-OF-INDIGENCY.pdf
+  allowed courts: 
+    - "Mashpee Wampanoag Tribal District Court"
+  categories:
+    - "Complaint Form"
+  typical role: "plaintiff"
+  generate download screen: True
+---
+code: |
+  interview_metadata['main_interview_key'] =  'Affidavit_of_Indigency'
+---
+code: |
+  # This controls the default country and list of states in address field questions
+  AL_DEFAULT_COUNTRY = "US"
+---
+code: |
+  # This controls the default state in address field questions
+  AL_DEFAULT_STATE = "MA"
+---
+code: |
+  github_repo_name =  'docassemble-AffidavitOfIndigency'
+---
+code: |
+  interview_short_title = "File a Affidavit of Indigency AND Request for Waiver of Fees & Cost"
+---
+code: |
+  al_form_type = "existing_case" 
+---
+objects:
+  - users: ALPeopleList.using(there_are_any=True)
+---
+sections:
+  - review_Affidavit_of_Indigency: Review your answers
+---
+###################### Main order ######################
+comment: |
+  This block includes the logic for standalone interviews.
+  Delete mandatory: True to include in another interview
+code: |
+  al_intro_screen
+  Affidavit_of_Indigency_intro
+  interview_order_Affidavit_of_Indigency
+  signature_date
+  # Store anonymous data for analytics / statistics
+  store_variables_snapshot(
+      persistent=True,
+      data={
+          "zip": showifdef("users[0].address.zip"),
+          "reached_interview_end": True,
+      },
+  )
+  Affidavit_of_Indigency_download
+---
+id: download Affidavit_of_Indigency
+event: Affidavit_of_Indigency_download
+question: |
+  All done
+subquestion: |
+  Thank you ${users}. Your form is ready to download and deliver.
+  
+  View, download and send your form below. Click the "Edit answers" button to fix any mistakes.
+
+  ${ action_button_html(url_action('review_Affidavit_of_Indigency'), label='Edit answers', color='info') }
+  
+  
+  ${ al_user_bundle.download_list_html() }
+  
+
+  ${ al_user_bundle.send_button_html(show_editable_checkbox=False) }
+
+progress: 100
+---
+
+
