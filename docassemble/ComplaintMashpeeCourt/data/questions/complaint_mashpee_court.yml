@@ -60,6 +60,22 @@ objects:
 sections:
   - review_complaint_mashpee_court: Review your answers
 ---
+sections:
+  - review_complaint_mashpee_court: Complaint Instructions
+  - plaintiff_info: Plaintiff Information
+  - address: Address
+  - contact_info: Contact Information
+  - enrl_num: Enrollment Number
+  - case_sum: Case Summary
+  - law_vio: Law Violation
+  - relief_desc: Relief Description
+  - def_info: Defendant Information
+  - und_conf: Confirm Understanding
+  - aff_intro: Affidavit of Indigency
+  - Preview: Preview Forms
+  - Signature: Sign Forms
+  - All_Done: All Done
+---
 #################### Interview order #####################
 comment: |
   Controls order and branching logic for questions specific to this form
@@ -70,31 +86,39 @@ code: |
   nav.set_section('review_complaint_mashpee_court')
   user_role = 'plaintiff'
   set_progress(7)
-  
+
+  nav.set_section("plaintiff_info")
   users.gather()
   set_progress(14)
-  
+
+  nav.set_section("address")
   users[0].address.address
   set_progress(21)
   
   set_parts(subtitle=str(users))
   set_progress(28)
-  
+
+  nav.set_section("contact_info")
   users[0].phone_number
   set_progress(35)
-  
+
+  nav.set_section("enrl_num")  
   enrollment_number
   set_progress(42)
-  
+
+  nav.set_section("case_sum")
   summary_of_case
   set_progress(49)
-  
+
+  nav.set_section("law_vio")
   law_violation
   set_progress(56)
 
+  nav.set_section("relief_desc")
   relief_description
   set_progress(63)
 
+  nav.set_section("def_info")
   if is_against_mashpee: 
     mashpee_department
     defendants.there_are_any = False
@@ -103,9 +127,11 @@ code: |
   defendants.gather()
   set_progress(70)
 
+  nav.set_section("und_conf")
   does_confirm_understanding
   set_progress(77)
 
+  nav.set_section("aff_intro")
   Affidavit_of_Indigency_intro
   get_income
   set_progress(84)
@@ -114,7 +140,7 @@ code: |
   set_progress(91)
 
   interview_order_complaint_mashpee_court = True
-  set_progress(100)
+  set_progress(99)
 
 ---
 ###################### Main order ######################
@@ -132,12 +158,18 @@ code: |
   signature_date
   # Save anonymized interview statistics (customize the saved data below)
   store_variables_snapshot(data={'zip': users[0].address.zip})
+  
+  nav.set_section("Preview")
   complaint_mashpee_court_preview_question
+  
+  nav.set_section("Signature")
   basic_questions_signature_flow
   users[0].signature
+
+  nav.set_section("All_Done")
   if (user_qualifies == "user_q"):
+    Send_to_Court
     complaint_aff_mashpee_court_download
-    user_sends
   else:
     complaint_mashpee_court_download
 ---
@@ -243,7 +275,7 @@ subquestion: |
 ---
 id: Case Description
 question: |
-    What {Relief} or Remedy Are You Seeking
+    What {Relief} or Remedy Are You Seeking?
 subquestion: |
   Be as specific and possible when you describe the type of relief or outcome you want? (For example, restorative justice or restitution)
 fields:  
@@ -252,7 +284,7 @@ fields:
 ---
 id: Case Description
 question: |
-    Tribal Enrollment Number?
+    What is you Tribal Enrollment Number?
 subquestion: |
  Are you a member/citizen of the Mashpee Wampanoag Tribe? If yes, please include your enrollment number. 
 fields:
@@ -273,7 +305,7 @@ fields:
 ---
 id: Case Description
 question: |
-    Case Violation
+    What law did the Defendant violate?
 subquestion: |
        What is the legal basis for your complaint? Identify the tribal law or ordinance that has been violated. Be specific if you can. If you do not know, please write N/A.
 fields:
@@ -283,7 +315,7 @@ fields:
 id: Affidavit_of_Indigency_AND_Request_of_Waiver_of_Fees_Cost
 continue button field: Affidavit_of_Indigency_intro
 question: |
-  Waiver of Court Fees Eligibility Guidelines. 
+  Waiver of Court Fees Eligibility Guidelines 
 subquestion: |
   Before moving forward, look at the Waiver of Court Fees Eligibility Guidelines linked below. This guided interview is only for people who are eligible for a {Fee Waiver}. If you make more than the qualifying amount, this form cannot be completed.
   
@@ -322,18 +354,20 @@ validation code: |
 ---
 id: upload_docs
 question: |
-  Upload a PDF file.
+  Upload a PDF file
 subquestion: |
-  Please upload a document that proves your income. W2 or other tax files.
+  Please upload a document that proves your income, such as a paystub. If you can, please upload a document that does not contain sensitive information, or redact any sensitive information (Social Security numbers, bank account information, etc.)
 fields:
   - File: the_doc
     datatype: file
 ---
 id: Case Description
 question: |
-  Case Description
+  Describe your case
 subquestion: |
-  Describe the problem or issue in detail. Be specific. Use names and describe who/what caused the issue. Include all dates and names you consider necessary.
+  Describe the problem or issue in detail. Be specific. 
+  
+  Use names and describe who/what caused the issue. Include all dates and names you consider necessary.
 fields:
   - "Case description": summary_of_case
     input type: area
@@ -342,12 +376,11 @@ id: Against Mashpee
 question: |
   Is the action against the Mashpee Wampanoag Tribe?
 subquestion: |
-  If your complaint is against a Depeartment or Institution of the Mashpee Tribe, select YES.  
+  If your complaint is against a Department or Institution of the Mashpee Tribe, select YES.  
 fields:
   - "This action is against Mashpee Wampanoag Tribe": is_against_mashpee 
     datatype: yesnoradio
-  - note: |
-      (The Mashpee Wampanoag Departments are: 477 Employment and Training Program, Child & Family Services (CFS), Education Department, Emergency Management Department, Enrollment Department, Facilities Department, Finance Department, First Light Shellfish Farm, Food Pantry, Health and Human Services, Historic Preservation & NAGPRA, Homeland Security (Police and Security), Housing Department, Human Resources Department, Indian Health Services (IHS), Language Department, Mashpee Wampanoag Museum, Natural Resources Department, Nutritional Services, Public Works Department, MWT TERO, Tribal Administrator)
+  - note: The Mashpee Wampanoag Departments are 477 Employment and Training Program, Child & Family Services (CFS), Education Department, Emergency Management Department, Enrollment Department, Facilities Department, Finance Department, First Light Shellfish Farm, Food Pantry, Health and Human Services, Historic Preservation & NAGPRA, Homeland Security (Police and Security), Housing Department, Human Resources Department, Indian Health Services (IHS), Language Department, Mashpee Wampanoag Museum, Natural Resources Department, Nutritional Services, Public Works Department, MWT TERO, Tribal Administrator.
 ---
 id: Mashpee Wampanoag Department or Departments
 question: |
@@ -393,20 +426,28 @@ id: Confirmation of Understanding
 question: |
   Confirm you understand
 subquestion: |
-  I swear or affirm by signing below that I have read this complaint and that to the best of my knowledge, the facts stated are true and correct. I understand that it is my responsibility to provide a copy of this complaint to each and every {Defendant}. I must provide proof to the Tribal Court that this complaint has been {served} before the action can proceed.
+  
+  I swear or affirm by signing below that I have read this complaint and that to the best of my knowledge, the facts stated are true and correct. 
+  
+  I understand that it is my responsibility to provide a copy of this complaint to each and every {Defendant}. I must provide proof to the Tribal Court that this complaint has been {served} before the action can proceed.
+
+  To continue, you must confirm your understanding of, and agree to, the statement above.
+  
 fields:
-  - To continue, you must confirm your understanding of, and agree to the statement above: does_confirm_understanding
+  - Confirmation: does_confirm_understanding
     datatype: checkboxes
     none of the above: False    
     minlength: 1
     choices:
-      - I understand: Yes
+      - I Understand and Agree: Yes
     validation messages:
       minlength: |
         You cannot continue unless you swear and agree to understanding the certification above.
 ---
 id: Fee Waiver Qualification
 question:
+  Fee waiver qualification
+subquestion:
   Answer the following questions to see if you might qualify for a fee waiver.
 fields:
   - "Enter your income": get_income
@@ -415,6 +456,10 @@ fields:
   - "How many people live in your home?": get_household_size
     datatype: number
     maxlength: 2
+  - "Is there any other income from your household?": other_income
+    note: Please include other forms of income, for example, rent from boarders, passive income, etc...
+    datatype: currency
+    maxlength: 16
 ---
 code: |
   # This is a placeholder for the addresses that will be searched
@@ -424,15 +469,22 @@ code: |
 ---
 id: preview complaint_mashpee_court
 question: |
-  Preview your form before you sign it
+  Preview your form(s) before you sign
 subquestion: |
-  Here is a preview of the form you will sign on the next page.   
-
+  
   % if (user_qualifies == "user_q"):
+
+  Here is a preview of the forms you will sign on the next page. You will sign once for both forms.  
+
   ${ al_court_bundle.as_pdf(key='preview') }  
   ${ al_court_bundle_2.as_pdf(key='preview') }
+  
   % else:
+  
+  Here is a preview of the form you will sign on the next page.   
+
   ${ al_court_bundle.as_pdf(key='preview') }
+ 
   % endif
 
 
@@ -451,6 +503,8 @@ continue button field: complaint_mashpee_court_preview_question
 ---
 code: |
   signature_fields = ['users[0].signature']
+under:
+  ${ users }
 ---
 id: complaint mashpee court review screen
 event: review_complaint_mashpee_court
@@ -542,26 +596,39 @@ confirm: True
 ---
 id: download complaint and affidavit
 event: complaint_aff_mashpee_court_download
-question:
+decoration: file-download
+question: |
   Almost done
-subquestion:
-  Thank you ${users}. Your form is ready to download and deliver. 
+subquestion: |
+  Thank you, ${users}. Your forms are ready to download and deliver. 
+    
+  View, download and send your forms below. You may send your forms directly to the Court and to yourself.
   
-  If you wish to email your forms to the Tribal Court, simply click the "Send to Court" button below and then the continue button, which will take you to a page where you can send your forms to the Court. Please note that you cannot return to here from that page.
-  
-  View, download and send your form below. You may send the form directly to the Court, or you may send the form to yourself. Click the "Edit answers" button to fix any mistakes.
-  ${ action_button_html(url_action('review_complaint_mashpee_court'), label='Edit answers for complaint', color='info') }
-  ${ action_button_html(url_action('review_Affidavit_of_Indigency'), label='Edit answers for fee waiver', color='info') }
   ${ al_user_aff_bundle.download_list_html() }
 
-  ${ al_user_bundle.send_button_html(show_editable_checkbox=True) }
----
-id: send to the court
-event: user_sends
-question:
-  If you wish to send your forms directly to the Tribal Court click the "Send" button below.
+  Click the "Edit answers" button to fix any mistakes.
+  
+  ${ action_button_html(url_action('review_complaint_mashpee_court'), label='Edit answers for complaint', color='info') }
+  ${ action_button_html(url_action('review_Affidavit_of_Indigency'), label='Edit answers for fee waiver', color='info') }
+  
+  If you wish to send your forms directly to the Tribal Court, click the "Send to Court" button here:
 
-  ${al_court_aff_bundle.send_button_to_html("michael.bergin@su.suffolk.edu") }
+continue button field: Send_to_Court
+continue button label: Send to Court
+---
+id: Send to Court
+event: complaint_aff_mashpee_court_download
+question:
+  Send to Court
+subquestion:
+
+  __SEND YOUR DOCUMENTS TO THE COURT HERE:__ ${al_court_aff_bundle.send_button_to_html("michael.bergin@su.suffolk.edu", label='__Send Forms to Court__', color='success')}
+  <br>
+  <br>
+  <br>
+  You can also send your documents to yourself below.
+
+  ${ al_user_bundle.send_button_html(show_editable_checkbox=True) }
 prevent going back: True
 ---
 id: download complaint_mashpee_court
@@ -569,9 +636,12 @@ event: complaint_mashpee_court_download
 question: |
   All done
 subquestion: |
-  Thank you ${users}. Your form is ready to download and deliver.
+  Thank you, ${users}. Your form is ready to download and deliver.
 
-  View and download your form below. You may also send your form to yourself with the email option. Click the "Edit answers" button to fix any mistakes.
+  View and download your form below. You may also send your form to yourself with the email option. 
+  
+  Click the "Edit answers" button to fix any mistakes.
+  
   ${ action_button_html(url_action('review_complaint_mashpee_court'), label='Edit answers for complaint', color='info') }
   ${ al_user_bundle.download_list_html() }
 

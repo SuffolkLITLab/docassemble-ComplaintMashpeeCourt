@@ -39,6 +39,11 @@ objects:
 ---
 sections:
   - review_Affidavit_of_Indigency: Review your answers
+  - necessary_info: Necessary Information
+  - mail_add: Mailing Address
+  - pub_asst_inc: Public Assistance or Income
+  - akn_sig: Aknowledgement and Signature
+    
 ---
 #################### Interview order #####################
 comment: |
@@ -49,16 +54,17 @@ code: |
   allowed_courts = interview_metadata["Affidavit_of_Indigency"]["allowed courts"]
   nav.set_section("review_Affidavit_of_Indigency")
   get_income
-  if (get_household_size == 1 and get_income < 18001) or \
-     (get_household_size == 2 and get_income < 22001) or \
-     (get_household_size == 3 and get_income < 27001) or \
-     (get_household_size == 4 and get_income < 31001) or \
-     (get_household_size == 5 and get_income < 36001) or \
-     (get_household_size == 6 and get_income < 40001) or \
-     (get_household_size == 7 and get_income < 44001) or \
-     (get_household_size == 8 and get_income < 49001) or \
-     (get_household_size == 9 and get_income < 53351) or \
-     (get_household_size == 10 and get_income < 57701):
+  if (get_household_size == 1 and get_income + other_income < 18001) or \
+     (get_household_size == 2 and get_income + other_income < 22001) or \
+     (get_household_size == 3 and get_income + other_income < 27001) or \
+     (get_household_size == 4 and get_income + other_income < 31001) or \
+     (get_household_size == 5 and get_income + other_income < 36001) or \
+     (get_household_size == 6 and get_income + other_income < 40001) or \
+     (get_household_size == 7 and get_income + other_income < 44001) or \
+     (get_household_size == 8 and get_income + other_income < 49001) or \
+     (get_household_size == 9 and get_income + other_income < 53351) or \
+     (get_household_size == 10 and get_income + other_income < 57701):
+    nav.set_section("necessary_info")
     user_qualifies = "user_q"
     user_ask_role = "plaintiff"
     Do_I_need_this_form
@@ -68,25 +74,31 @@ code: |
     case_num
     users[0].address.address
     set_progress(16)
+
+    nav.set_section("mail_add")
     mailing_different
+
+    nav.set_section("pub_asst_inc")
     public_assistance
     if (public_assistance == "No"):
       personal_take_home_pay_box = True
     set_progress(32)
+    
+    nav.set_section("akn_sig")  
     acknowledge_receipt_box
     signature_date
     set_progress(64)
     interview_order_Affidavit_of_Indigency = True
-  if (get_household_size == 1 and get_income > 18001) or \
-     (get_household_size == 2 and get_income > 22001) or \
-     (get_household_size == 3 and get_income > 27001) or \
-     (get_household_size == 4 and get_income > 31001) or \
-     (get_household_size == 5 and get_income > 36001) or \
-     (get_household_size == 6 and get_income > 40001) or \
-     (get_household_size == 7 and get_income > 44001) or \
-     (get_household_size == 8 and get_income > 49001) or \
-     (get_household_size == 9 and get_income > 53351) or \
-     (get_household_size == 10 and get_income > 57701):
+  if (get_household_size == 1 and get_income + other_income > 18001) or \
+     (get_household_size == 2 and get_income + other_income > 22001) or \
+     (get_household_size == 3 and get_income + other_income > 27001) or \
+     (get_household_size == 4 and get_income + other_income > 31001) or \
+     (get_household_size == 5 and get_income + other_income > 36001) or \
+     (get_household_size == 6 and get_income + other_income > 40001) or \
+     (get_household_size == 7 and get_income + other_income > 44001) or \
+     (get_household_size == 8 and get_income + other_income > 49001) or \
+     (get_household_size == 9 and get_income + other_income > 53351) or \
+     (get_household_size == 10 and get_income + other_income > 57701):
     user_qualifies = "user_nq"
     interview_order_Affidavit_of_Indigency = False
 ---
@@ -111,7 +123,7 @@ code: |
 comment: |
   this is information on what paperwork is needed along with this AOI itself. 
 question: |
-  Required Paperwork to file. 
+  Required Paperwork to file 
 subquestion: |
   The Affidavit of Indigency is a formal legal form than an individual submits to the Court stating their inability to pay a fee associated with their case because of financial reasons. 
   
@@ -138,7 +150,7 @@ comment: |
 id: Affidavit_of_Indigency_AND_Request_of_Waiver_of_Fees__Cost
 continue button field: Affidavit_of_Indigency_intro
 question: |
-  Waiver of Court Fees Eligibility Guidelines. 
+  Waiver of Court Fees Eligibility Guidelines 
 subquestion: |
   Before moving forward look at the Waiver of Court Fees Eligibility Guidelines linked below. If you do not fall into the financial range per household member, this form may not be for you.
   
@@ -147,6 +159,8 @@ subquestion: |
 ---
 id: Fee Waiver Qualification
 question:
+  Fee waiver qualification
+subquestion:
   Answer the following questions to see if you might qualify for a fee waiver.
 fields:
   - "Enter your income": get_income
@@ -155,9 +169,15 @@ fields:
   - "How many people live in your home?": get_household_size
     datatype: number
     maxlength: 2
+  - "Is there any other income from your household?": other_income
+    note: Please include other forms of income, for example, rent from boarders, passive income, etc...
+    datatype: currency
+    maxlength: 16
 ---
 id: What is your name
 question: |
+  What is your name?
+subquestion:
   If you are the applying for the waiver, please give us your name?
 fields:
   - "Applicant full name": users[0].name.name
@@ -165,8 +185,10 @@ fields:
 ---
 id: If you already have an ongoing case who are the parties?
 question: |
-  If you already have an ongoing case, who are the parties?
+  Is there an existing case?
 subquestion: |
+  If you already have an ongoing case, who are the parties?
+  
   If you have not yet filed/there is not yet a Defendant, write "N/A".
 fields:
   - "Plaintiff": user_role1
@@ -199,8 +221,11 @@ fields:
 ---
 id: Assistance or Pay
 question:
+  Public Assistance
+subquestion:
   Do you receive public assistance?
-subquestion: If you do not receive any public assistance, you will need to provide your personal take home pay.
+  
+  If you do not receive any public assistance, you will need to provide your personal take home pay.
 fields:
   - "I receive public assistance": public_assistance
     input type: radio
@@ -269,8 +294,6 @@ id: Please sign below
 question: |
   Please sign below. This signature will appear at the end of you Affidavit.
 signature: users[0].signature
-under:
-  ${users[0].name.name}
 ---
 id: preview Affidavit_of_Indigency
 question: |
