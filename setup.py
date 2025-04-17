@@ -46,7 +46,7 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
 setup(name='docassemble.ComplaintMashpeeCourt',
       version='1.0',
       description=('Complaint Mashpee Wampanoag Tribal Court'),
-      long_description='# docassemble.ComplaintMashpeeCourt\r\n\r\nComplaint Mashpee Wampanoag Tribal Court\r\n\r\n## Author\r\n\r\nIvette A Cuenod\r\n\r\n',
+      long_description='# docassemble.ComplaintMashpeeCourt\r\n\r\nComplaint Mashpee Wampanoag Tribal Court\r\n\r\n## Author\r\n\r\nIvette A Cuenod\r\nChristopher Emrich\r\nMichael Bergin\r\n',
       long_description_content_type='text/markdown',
       author='Ivette A Cuenod',
       author_email='ivettealexandra.cuenodlorenzo@su.suffolk.edu',

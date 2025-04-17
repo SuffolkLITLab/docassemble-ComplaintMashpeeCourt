@@ -65,7 +65,7 @@ sections:
   - plaintiff_info: Plaintiff Information
   - address: Address
   - contact_info: Contact Information
-  - enrl_num: Enrollment Number
+  ### - enrl_num: Enrollment Number
   - case_sum: Case Summary
   - law_vio: Law Violation
   - relief_desc: Relief Description
@@ -93,6 +93,7 @@ code: |
 
   nav.set_section("address")
   users[0].address.address
+  mailing_different
   set_progress(21)
   
   set_parts(subtitle=str(users))
@@ -102,9 +103,9 @@ code: |
   users[0].phone_number
   set_progress(35)
 
-  nav.set_section("enrl_num")  
-  enrollment_number
-  set_progress(42)
+  ### nav.set_section("enrl_num")  
+  ### enrollment_number
+  ### set_progress(42)
 
   nav.set_section("case_sum")
   summary_of_case
@@ -124,7 +125,8 @@ code: |
     defendants.there_are_any = False
   else: 
     defendants.there_are_any = True
-  defendants.gather()
+    defendants.gather()
+    defendants[0].address.address
   set_progress(70)
 
   nav.set_section("und_conf")
@@ -154,7 +156,7 @@ code: |
   interview_order_complaint_mashpee_court
   if (user_qualifies == "user_q"):  
     Do_I_need_this_form
-    the_doc
+    ### the_doc
   signature_date
   # Save anonymized interview statistics (customize the saved data below)
   store_variables_snapshot(data={'zip': users[0].address.zip})
@@ -184,6 +186,8 @@ terms:
     A fee waiver is the court form that makes it free to file a civil complaint. 
   plaintiff: |
     A plaintiff is the person who initiates the lawsuit against a defendant.
+  co-plaintiff: |
+    A Co-plaintiff is a person who is suing the defendant alongside you, they are another party in the case.
   defendant: |
     A defendant is the person who a court case is against. For example: Smith v Jones - this shows that 'Smith' is the plaintiff and 'Jones' is the defendant.   
   relief: |
@@ -255,15 +259,17 @@ subquestion: |
   
   The interview will ask you for some information like:
   
-  1. Who is the {Plaintiff}: The Plaintiff is the person making the complaint. This might be you, or if you are assisting an individual with this form, you will fill in their name. 
+  1. Who is the {Plaintiff}: The Plaintiff is the person making the complaint. This might be you, or if you are assisting an individual with this form, you will fill in their name.
+
+  2. Who is a {Co-plaintiff}: A Co-plaintiff is a person who is suing the defendant alongside you, they are another party in the case.
   
-  2. Who is the {Defendant}: The Defendant is the person or tribal department the complaint is about. You will need to know the name of the person or the specific department in the tribe. 
+  3. Who is the {Defendant}: The Defendant is the person or tribal department the complaint is about. You will need to know the name of the person or the specific department in the tribe. 
   
-  3. You may be asked to describe the problem/legal violation and who or what caused it. Dates and names are encouraged.  
+  4. You may be asked to describe the problem/legal violation and who or what caused it. Dates and names are encouraged.  
   	
-  4. If you know any tribal law that was violated as part of your statement, state which it is. If not leave it blank. 
+  5. If you know any tribal law that was violated as part of your statement, state which it is. If not leave it blank. 
   
-  5. You will need your name and Tribal ID number - if applicable, you may also need your address and phone number.
+  6. You will need your name and Tribal ID number - if applicable, you may also need your address and phone number.
   
   If you have any questions about the procedure of filing the Complaint, [contact] the Tribal Court or an attorney. 
   
@@ -271,7 +277,20 @@ subquestion: |
   
   [contact]: ${ url_of('https://mashpeewampanoagtribe-nsn.gov/about-the-court')}
  #continue button field: Instructions_for_filling_out_a_Complaint_in_Mashpee_Wampanoag_Tribal_Court
-  
+---
+id: Mailing Address
+question: |
+    Mailing Address
+subquestion: |
+  Please provide your mailing address.
+fields:
+  - "Is your mailing address the same?": mailing_different
+    datatype: noyesradio
+  - "Mailing Address": mailing_address
+    show if:
+      variable: mailing_different
+      is: True
+    maxlength: 64
 ---
 id: Case Description
 question: |
@@ -290,9 +309,6 @@ subquestion: |
 fields:
   - "Plaintiff Tribal Enrollment Number": enrollment_number
     input type: area
-  - note: |
-      More information about tribal enrollment number [here.]
-        [here.]: ${ url_of('https://mashpeewampanoagtribe-nsn.gov/enrollment')}
 ---
 id: Case Description
 question: |
@@ -307,7 +323,7 @@ id: Case Description
 question: |
     What law did the Defendant violate?
 subquestion: |
-       What is the legal basis for your complaint? Identify the tribal law or ordinance that has been violated. Be specific if you can. If you do not know, please write N/A.
+       What is the legal basis for your complaint? Identify the tribal law or ordinance that has been violated. Be as specific as you can. If you do not know, please write N/A.
 fields:
   - "Law violation": law_violation
     input type: area
@@ -324,9 +340,13 @@ subquestion: |
 ---
 id: your contact information
 question: |
-  What is your contact information?
+  What is your preferred contact information?
 subquestion: |
   Include **at least one** way to reach you other than by mail.
+
+  Would you accept contact from the court via text, email, in addition to by mail?
+
+  Would you accept filing by mail and email?
 
   ${ collapse_template(why_contact_info_needed_template) }
 fields:  
@@ -345,12 +365,26 @@ fields:
       an alternative contact method. For example, use may use friend's phone number.
       But the friend must be someone you can rely on to give you a
       message.
+  - Contact from Court: court_contact
+    datatype: checkboxes
+    choices:
+      - Text
+      - E-mail
+    all of the above: True
+    none of the above: False
+  - Filing: court_filing
+    datatype: checkboxes
+    choices:
+      - Mail
+      - E-mail
+    all of the above: True
+    none of the above: False
 validation code: |
   if (not showifdef('users[0].phone_number') and \
       (not showifdef('users[0].mobile_number')) and \
       (not showifdef('users[0].email')) and \
       (not showifdef('users[0].other_contact_method'))):
-    validation_error(word("You need to provide at least one contact method."), field="users[0].other_contact_method")
+    validation_error(word("You need to provide at least one contact method."), field="users[0].other_contact_method")  
 ---
 id: upload_docs
 question: |
@@ -380,7 +414,6 @@ subquestion: |
 fields:
   - "This action is against Mashpee Wampanoag Tribe": is_against_mashpee 
     datatype: yesnoradio
-  - note: The Mashpee Wampanoag Departments are 477 Employment and Training Program, Child & Family Services (CFS), Education Department, Emergency Management Department, Enrollment Department, Facilities Department, Finance Department, First Light Shellfish Farm, Food Pantry, Health and Human Services, Historic Preservation & NAGPRA, Homeland Security (Police and Security), Housing Department, Human Resources Department, Indian Health Services (IHS), Language Department, Mashpee Wampanoag Museum, Natural Resources Department, Nutritional Services, Public Works Department, MWT TERO, Tribal Administrator.
 ---
 id: Mashpee Wampanoag Department or Departments
 question: |
@@ -409,6 +442,18 @@ combobox:
       - Public Works Department: Public Works Department
       - MWT TERO: MWT TERO
       - Tribal Administrator: Tribal Administrator
+---
+id: defendant address
+question:
+  What is the defendant's address?
+fields:
+  - Address: defendants[0].address.address
+    address autocomplete: True
+  - City: defendants[0].address.city
+  - State: defendants[0].address.state
+    code: |
+      states_list()
+  - Zip: defendant[0].address.zip
 ---
 id: your name
 sets:
@@ -450,13 +495,13 @@ question:
 subquestion:
   Answer the following questions to see if you might qualify for a fee waiver.
 fields:
-  - "Enter your income": get_income
+  - "Enter your annual income": get_income
     datatype: currency
     maxlength: 16
   - "How many people live in your home?": get_household_size
     datatype: number
     maxlength: 2
-  - "Is there any other income from your household?": other_income
+  - "Is there any other annual income earned by your household?": other_income
     note: Please include other forms of income, for example, rent from boarders, passive income, etc...
     datatype: currency
     maxlength: 16

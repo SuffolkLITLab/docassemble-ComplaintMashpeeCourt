@@ -71,7 +71,7 @@ code: |
     users[0].name.name
     user_role1
     defendant_mashpee
-    case_num
+    ### case_num
     users[0].address.address
     set_progress(16)
 
@@ -127,7 +127,7 @@ question: |
 subquestion: |
   The Affidavit of Indigency is a formal legal form than an individual submits to the Court stating their inability to pay a fee associated with their case because of financial reasons. 
   
-  You will need to following documents in order to file this form with the court:
+  After filing this form with the court, you will need to provide the following documents during your first hearing:
   
   - information on your personal take home pay from all employment sources
   
@@ -185,11 +185,7 @@ fields:
 ---
 id: If you already have an ongoing case who are the parties?
 question: |
-  Is there an existing case?
-subquestion: |
-  If you already have an ongoing case, who are the parties?
-  
-  If you have not yet filed/there is not yet a Defendant, write "N/A".
+  Who are the parties in your case?
 fields:
   - "Plaintiff": user_role1
     maxlength: 48
