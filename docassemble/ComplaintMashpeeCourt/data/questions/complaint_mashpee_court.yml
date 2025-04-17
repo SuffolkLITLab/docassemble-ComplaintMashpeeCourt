@@ -308,7 +308,9 @@ subquestion: |
  Are you a member/citizen of the Mashpee Wampanoag Tribe? If yes, please include your enrollment number. 
 fields:
   - "Plaintiff Tribal Enrollment Number": enrollment_number
-    input type: area
+  ### - note: |
+     ### More information about tribal enrollment number [here.]
+       ### [here.]: ${ url_of('https://mashpeewampanoagtribe-nsn.gov/enrollment')}
 ---
 id: Case Description
 question: |
@@ -344,9 +346,9 @@ question: |
 subquestion: |
   Include **at least one** way to reach you other than by mail.
 
-  Would you accept contact from the court via text, email, in addition to by mail?
+  Would you accept contact from the court via text, phone, or email, in addition to by mail?
 
-  Would you accept filing by mail and email?
+  Would you accept filing by email, in addition to by mail?
 
   ${ collapse_template(why_contact_info_needed_template) }
 fields:  
@@ -365,20 +367,22 @@ fields:
       an alternative contact method. For example, use may use friend's phone number.
       But the friend must be someone you can rely on to give you a
       message.
-  - Contact from Court: court_contact
+  - I accept contact from the court through: court_contact
     datatype: checkboxes
+    grid: 3
     choices:
       - Text
+      - Phone
       - E-mail
-    all of the above: True
     none of the above: False
-  - Filing: court_filing
+    required: False
+  - I will accept filing by: court_filing
     datatype: checkboxes
+    grid: 3
     choices:
-      - Mail
       - E-mail
-    all of the above: True
     none of the above: False
+    required: False
 validation code: |
   if (not showifdef('users[0].phone_number') and \
       (not showifdef('users[0].mobile_number')) and \
