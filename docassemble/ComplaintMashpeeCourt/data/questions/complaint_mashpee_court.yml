@@ -421,31 +421,66 @@ fields:
 ---
 id: Mashpee Wampanoag Department or Departments
 question: |
-  Which department or departments of Mashpee Wampanoag is your case against?
+  Which department(s), committee(s), or commission(s) of Mashpee Wampanoag is your case against?
 field: mashpee_department
 combobox: 
-      - 477 Employment and Training Program: 477 Employment and Training Program
-      - Child & Family Services (CFS): Child & Family Services (CFS)
+      - 477 - Child Care Department (CCDF): 477 - Child Care Department (CCDF)
+      - 477 - Pantry: 477 Pantry
+      - 477 - Work Force Investment (WIOA): 477 - Work Force Investment (WIOA)
+      - Community Development Corp. (CDC): Community Development Corp. (CDC)
+      - Community Outreach: Community Outreach
+      - Comptroller: Comptroller
+      - Development Department: Development Department
+      - Education Committee: Education Committee
       - Education Department: Education Department
+      - Elder Judiciary Committee (EJC): Elder Judiciary Committee (EJC)
+      - Elders Committee: Elders Committee
+      - Elders Department: Elders Department
+      - Election Committee: Election Committee
       - Emergency Management Department: Emergency Management Department
+      - Enrollment Committee: Enrollment Committee
       - Enrollment Department: Enrollment Department
+      - Ethics Commission: Ethics Commission
       - Facilities Department: Facilities Department
       - Finance Department: Finance Department
-      - First Light Shellfish Farm: First Light Shellfish Farm
-      - Food Pantry: Food Pantry
-      - Health and Human Services: Health and Human Services
-      - Historic Preservation & NAGPRA: Historic Preservation & NAGPRA
-      - Homeland Security (Police and Security): Homeland Security (Police and Security)
+      ### - First Light Shellfish Farm: First Light Shellfish Farm
+      ### - Food Pantry: Food Pantry
+      ### - Health and Human Services: Health and Human Services
+      ### - Homeland Security (Police and Security): Homeland Security (Police and Security)
+      - Gaming Commission: Gaming Commission
+      - Housing Commission: Housing Commission
       - Housing Department: Housing Department
       - Human Resources Department: Human Resources Department
+      - ICWA: ICWA
       - Indian Health Services (IHS): Indian Health Services (IHS)
+      - Land Use Committee: Land Use Committee
       - Language Department: Language Department
-      - Mashpee Wampanoag Museum: Mashpee Wampanoag Museum
+      - LIHEAP: LIHEAP
+      - Mittark Committee: Mittark Committee
+      ### - Mashpee Wampanoag Museum: Mashpee Wampanoag Museum
+      ### - Nutritional Services: Nutritional Services
+      - Natural Resources Commission: Natural Resources Commission
       - Natural Resources Department: Natural Resources Department
-      - Nutritional Services: Nutritional Services
+      - Old Indian Meeting House Committee: Old Indian Meeting House Committee
+      - Powwow Committee: Powwow Committee
+      - Public Relations Department: Public Relations Department
+      - Public Safety Committee: Public Safety Committee
       - Public Works Department: Public Works Department
-      - MWT TERO: MWT TERO
-      - Tribal Administrator: Tribal Administrator
+      - Security Department: Security Department
+      - TERO Department: TERO Department
+      - Tribal Administration: Tribal Administration
+      - Tribal Broadband Task Force: Tribal Broadband Task Force
+      - Tribal Council: Tribal Council
+      - Tribal Historic Preservation (THPO): Tribal Historic Preservation (THPO)
+      - Tribal Historic Preservation Department: Tribal Historic Preservation Department
+      - Tribal Opiod Response (TOR): Tribal Opiod Response (TOR)
+      - Tribal Police: Tribal Police
+      - Wampanoag Language Committee: Wampanoag Language Committee
+      - Winter Ball Committee: Winter Ball Committee
+      - Youth Advisory Board: Youth Advisory Board
+      - Youth Council: Youth Council
+      - Youth Cultural: Youth Cultural
+      - Youth Department: Youth Department
 ---
 id: defendant address
 question:
