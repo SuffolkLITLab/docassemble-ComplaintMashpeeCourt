@@ -301,7 +301,7 @@ fields:
   - "Relief description": relief_description
     input type: area
 ---
-id: Case Description
+id: "Case Description 2"
 question: |
     What is you Tribal Enrollment Number?
 subquestion: |
@@ -312,7 +312,7 @@ fields:
      ### More information about tribal enrollment number [here.]
        ### [here.]: ${ url_of('https://mashpeewampanoagtribe-nsn.gov/enrollment')}
 ---
-id: Case Description
+id: "Case Description 3"
 question: |
     Case Jurisdiction?
 subquestion: |
@@ -321,7 +321,7 @@ fields:
   - "Case jurisdiction": case_jurisdiction
     input type: area
 ---
-id: Case Description
+id: "Case Description 4"
 question: |
     What law did the Defendant violate?
 subquestion: |
@@ -399,7 +399,7 @@ fields:
   - File: the_doc
     datatype: file
 ---
-id: Case Description
+id: "Case Description 5"
 question: |
   Describe your case
 subquestion: |
@@ -635,6 +635,7 @@ review:
       ${ signature_date }
 ---
 continue button field: users.revisit
+id: "edit users"
 question: |
   Edit users
 subquestion: |
@@ -662,6 +663,7 @@ confirm: True
 
 ---
 continue button field: defendants.revisit
+id: "edit defendants"
 question: |
   Edit defendants
 subquestion: |
