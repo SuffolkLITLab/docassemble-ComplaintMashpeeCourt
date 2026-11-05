@@ -219,7 +219,7 @@ subquestion: |
   This site is not a lawyer. If you would like a lawyer, find [your local
   legal aid provider](https://www.lsc.gov/what-legal-aid/find-legal-aid).
 
-  Alternatively, you may wish to represent yourself. If you do, you can find a helpful guide for self representation [here](https://static1.squarespace.com/static/59ca33c0f09ca4a9c58455a9/t/5a3c4a15e2c483c2491735a0/1513900576522/Self-Representation-Guide.-Amended.Jan-2017.pdf).
+  Alternatively, you may wish to represent yourself. If you do, you can find a helpful [guide for self representation](https://static1.squarespace.com/static/59ca33c0f09ca4a9c58455a9/t/5a3c4a15e2c483c2491735a0/1513900576522/Self-Representation-Guide.-Amended.Jan-2017.pdf).
 
   Tap the {green words} in any screen for a definition or more information.
   
@@ -301,7 +301,7 @@ fields:
   - "Relief description": relief_description
     input type: area
 ---
-id: Case Description
+id: "Case Description 2"
 question: |
     What is you Tribal Enrollment Number?
 subquestion: |
@@ -312,7 +312,7 @@ fields:
      ### More information about tribal enrollment number [here.]
        ### [here.]: ${ url_of('https://mashpeewampanoagtribe-nsn.gov/enrollment')}
 ---
-id: Case Description
+id: "Case Description 3"
 question: |
     Case Jurisdiction?
 subquestion: |
@@ -321,7 +321,7 @@ fields:
   - "Case jurisdiction": case_jurisdiction
     input type: area
 ---
-id: Case Description
+id: "Case Description 4"
 question: |
     What law did the Defendant violate?
 subquestion: |
@@ -399,7 +399,7 @@ fields:
   - File: the_doc
     datatype: file
 ---
-id: Case Description
+id: "Case Description 5"
 question: |
   Describe your case
 subquestion: |
@@ -635,6 +635,7 @@ review:
       ${ signature_date }
 ---
 continue button field: users.revisit
+id: "edit users"
 question: |
   Edit users
 subquestion: |
@@ -662,6 +663,7 @@ confirm: True
 
 ---
 continue button field: defendants.revisit
+id: "edit defendants"
 question: |
   Edit defendants
 subquestion: |
